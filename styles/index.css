@@ -1,0 +1,22 @@
+/* Header */
+
+header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.header-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 40%;
+}
+
+.header-button {
+    border-radius: 20px;
+    background-color: black;
+    color: white;
+    min-width: 10%;
+}
