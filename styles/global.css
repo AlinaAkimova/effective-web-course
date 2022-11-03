@@ -4,12 +4,26 @@
 /* Обычный */
 @font-face {
 	font-family: 'Inter'; 
-	src: local('Inter normal'), url(/fonts/Inter-Regular.otf); 
+	src: local('Inter normal'), url('./fonts/Inter-Regular.otf'); 
+	font-weight: normal;
 }
  
 /* Жирный */
 @font-face {
 	font-family: 'Inter bold'; 
-	src: local('Inter bold'), url(/fonts/Inter-ExtraBold.otf); 
+	src: local('Inter bold'), url('./fonts/Inter-ExtraBold.otf'); 
+	font-weight: bold;
 }
 
+:root {
+	--color-violet: #6C5CE7;
+	--color-orange: #FDCB6E;
+	--color-pink: #E84393;
+	--color-light-violet: #A29BFE;
+	--color-green: #00B894;
+	--color-light-green: #55EFC4;
+	--color-blue: #0984E3;
+	--color-yellow: #FFEAA7;
+	--color-gray-1:  rgba(38, 50, 56, 0.08);
+	--color-gray-2: rgba(38, 50, 56, 0.16);
+}

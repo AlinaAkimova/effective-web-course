@@ -3,31 +3,43 @@ html{
     font-family: 'Inter normal';
 }
 
-/* h1, h2, h3, h4{
-    
-} */
+* {
+    margin: 0;
+    padding: 0;
+}
 
+h1, h2, h3, h4{
+    margin: 0;
+    padding: 0;
+}
+
+/* 96px */
 h1{
     font-size: 5.5em;
     letter-spacing: -3px;
 }
 
+/* 77px */
 h2{
+    font-size: 4.2em;
+}
+
+/* 64px */
+h3{
     font-size: 3.5em;
 }
 
-h3{
+/* 48px */
+h4{
     font-size: 2.5em;
 }
 
-h4{
-    font-size: 1.3em;
-}
-
+/* 24px */
 h5{
-    font-size: 1.2em;
+    font-size: 1.4em;
 }
 
+/* 18px */
 h6{
     font-size: 1em;
 }
