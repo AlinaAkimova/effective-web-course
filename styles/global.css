@@ -16,6 +16,7 @@
 }
 
 :root {
+	--color-white: #ffffff;
 	--color-violet: #6C5CE7;
 	--color-orange: #FDCB6E;
 	--color-pink: #E84393;
@@ -24,6 +25,7 @@
 	--color-light-green: #55EFC4;
 	--color-blue: #0984E3;
 	--color-yellow: #FFEAA7;
+	--color-light-red: #FF7675;
 	--color-gray-1:  rgba(38, 50, 56, 0.08);
 	--color-gray-2: rgba(38, 50, 56, 0.16);
 }
