@@ -50,6 +50,8 @@ main {
     margin-top: 80px;
 }
 
+/* Main colorfull grid */
+
 .main-grid {
     max-width: 70%;
     display: grid;
@@ -135,8 +137,11 @@ main {
     color: var(--color-gray-3)
 }
 
+/* Main price box */
+
 .main-price-boxes {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
     margin: 60px 0px;
     min-width: 70%;
@@ -183,17 +188,14 @@ main {
 }
 
 .free-description-list {
-    /* list-style-image: url(./../assets/img/IconAcrylic.svg); */
     list-style:none;
 }
 
 .high-description-list {
-    /* list-style-image: url(./../assets/img/IconAcrylicYellow.svg); */
     list-style:none;
 }
 
 .middle-description-list {
-    /* list-style-image: url(./../assets/img/IconAcrylicGreen.svg); */
     list-style:none;
 }
 
@@ -212,3 +214,76 @@ main {
     height: 60px;
 }
 
+/* Main opportunities box */
+
+.main-opportunities {
+    max-width: 70%;
+    display: flex;
+    justify-content:space-around;
+    flex-direction: column;
+    min-height: 500px;
+    margin-top: 40px;
+}
+
+.main-opportunities-icons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.main-opportunities-icons-box {
+    max-width: 20%;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    min-height: 300px;
+}
+
+.main-opportunities-button {
+    border-radius: 16px;
+    border: 1px solid var(--color-gray-3);
+    background-color: var(--color-white);
+    color: var(--color-violet);
+    height: 48px;
+    max-width: 50%;
+}
+
+.main-round-background-pink {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 70px;
+    max-height: 70px;
+    border-radius: 999px;
+    background-color: var(--color-pink);
+}
+
+.main-round-background-blue {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 70px;
+    max-height: 70px;
+    border-radius: 999px;
+    background-color: var(--color-blue);
+}
+
+.main-round-background-violet {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 70px;
+    max-height: 70px;
+    border-radius: 999px;
+    background-color: var(--color-violet);
+}
+
+.main-round-background-green {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 70px;
+    max-height: 70px;
+    border-radius: 999px;
+    background-color: var(--color-green);
+}
