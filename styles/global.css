@@ -4,14 +4,16 @@
 /* Обычный */
 @font-face {
 	font-family: 'Inter'; 
-	src: local('Inter normal'), url('./fonts/Inter-Regular.otf'); 
+	src: local('Inter'), url('../fonts/Inter-Regular.ttf') format('truetype'); 
+	font-style: normal;
 	font-weight: normal;
 }
  
 /* Жирный */
 @font-face {
-	font-family: 'Inter bold'; 
-	src: local('Inter bold'), url('./fonts/Inter-ExtraBold.otf'); 
+	font-family: 'Inter'; 
+	src: local('Inter'), url('../fonts/Inter-ExtraBold.ttf') format('truetype');
+	font-style: normal;
 	font-weight: bold;
 }
 
