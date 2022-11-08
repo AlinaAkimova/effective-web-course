@@ -255,6 +255,7 @@ main {
     justify-content: space-around;
     flex-direction: column;
     min-height: 300px;
+    line-height: 2;
 }
 
 .main-opportunities-button {
@@ -264,6 +265,7 @@ main {
     color: var(--color-violet);
     height: 48px;
     max-width: 50%;
+    margin-top: 15px;
 }
 
 .main-round-background {
