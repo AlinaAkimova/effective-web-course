@@ -16,13 +16,13 @@ h1, h2, h3, h4{
 
 /* 96px */
 h1{
-    font-size: 5.5em;
+    font-size: 5.5rem;
     letter-spacing: -3px;
 }
 
 /* 77px */
 h2{
-    font-size: 4.2em;
+    font-size: 4.2rem;
 }
 
 /* 64px */
@@ -46,6 +46,6 @@ h6{
 }
 
 p{
-    font-size: 1em;
+    font-size: 1rem;
 }
 
