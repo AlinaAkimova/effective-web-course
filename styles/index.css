@@ -1,6 +1,9 @@
-/* common */
-li {
-    list-style: none;
+/* Body */
+
+body {
+    background-image: url("../assets/img/Rectangle.svg");
+    background-repeat: no-repeat;
+    background-position: top  right;
 }
 
 /* Header */
@@ -10,6 +13,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    background-color: var(--color-white);
     margin: 0;
     padding: 10px;
     box-shadow: 0px 4px 8px var(--color-gray-1), 0 2px 4px var(--color-gray-2);
@@ -52,9 +56,22 @@ main {
     display: flex;
     align-items: center;
     flex-direction: column;
+    background: url("../assets/img/Dots.png") top right no-repeat;
+}
+
+h1 {
     margin-top: 80px;
 }
 
+.main-fine {
+    padding: 0 8px;
+    color: var(--color-pink);
+    background: url("../assets/img/99\ dp.svg") bottom no-repeat;
+}
+
+.text-shadow {
+    text-shadow: 0 4px var(--color-white);
+}
 /* Main colored grid */
 
 .main-grid {
@@ -260,7 +277,6 @@ main {
 
 .main-opportunities-button {
     border-radius: 16px;
-
     border: 1px solid var(--color-gray-3);
     background-color: var(--color-white);
     color: var(--color-violet);
@@ -302,7 +318,6 @@ footer {
     justify-content: space-between;
     flex-direction: column;
     margin-top: 150px;
-    /* align-items: center; */
     min-height: 500px;
 }
 
