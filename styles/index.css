@@ -22,22 +22,37 @@ header {
     align-items: center;
 }
 
-.header-nav {
+
+.header-name h4{
+    margin-right: 100px;
+}
+
+.header-icon-thin {
+    display: none;
+}
+
+nav ul{
     display: flex;
     align-items: center;
     justify-content: space-between;
     min-width: 35%;
 }
 
+nav li {
+    margin: 0 27px;
+}
+
 .violet-text {
     color: var(--color-violet);
 }
 
-.header-nav-dots {
+nav h6 {
     color: var(--color-orange);
 }
 
 .header-button {
+    font-size: 1.4rem;
+    font-weight: bold;
     border-radius: 999px;
     background-color: var(--color-black);
     color: var(--color-white);
@@ -58,18 +73,25 @@ main {
 }
 
 h1 {
+    text-align: center;
     margin-top: 80px;
+}
+
+h2 {
+    text-align: center;
 }
 
 .main-fine {
     padding: 0 8px;
     color: var(--color-pink);
     background: url("../assets/img/pinkBorder.svg") bottom no-repeat;
+    background-size: 100%;
 }
 
 .text-shadow {
     text-shadow: 0 4px var(--color-white);
 }
+
 /* Main colored grid */
 
 .main-grid {
@@ -131,6 +153,8 @@ h1 {
 }
 
 .button-cell {
+    font-size: 1.4rem;
+    font-weight: bold;
     border-radius: 999px;
     border: 0px;
     background-color: var(--color-white);
@@ -173,9 +197,8 @@ h1 {
 
 .main-price-boxes {
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-between;
-    margin: 60px 0px;
+    margin: 40px 0px;
     min-width: 70%;
 }
 
@@ -238,6 +261,8 @@ h1 {
 }
 
 .main-price-box-button {
+    font-size: 1rem;
+    font-weight: bold;
     border-radius: 16px;
     height: 60px;
     border: 1px solid var(--color-gray-3);
@@ -246,6 +271,8 @@ h1 {
 }
 
 .main-price-box-button-full {
+    font-size: 1rem;
+    font-weight: bold;
     height: 60px;
     border-radius: 16px;
     color: var(--color-white);
@@ -273,20 +300,22 @@ h1 {
 .main-opportunities-icons-box {
     max-width: 20%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     flex-direction: column;
     min-height: 300px;
     line-height: 2;
 }
 
 .main-opportunities-button {
+    font-size: 1rem;
+    font-weight: bold;
     border-radius: 16px;
     border: 1px solid var(--color-gray-3);
     background-color: var(--color-white);
     color: var(--color-violet);
-    height: 48px;
-    max-width: 50%;
-    margin-top: 15px;
+    min-height: 48px;
+    min-width: 50%;
+    margin: 15px 15px 15px 0;
 }
 
 .main-round-background {
@@ -322,7 +351,6 @@ footer {
     justify-content: space-between;
     flex-direction: column;
     margin-top: 150px;
-    min-height: 500px;
 }
 
 .text-gray {
@@ -434,11 +462,13 @@ input {
 }
 
 .footer-button-cell {
+    font-size: 1.4rem;
+    font-weight: bold;
     color: var(--color-white);
     background-color: var(--color-violet);
     grid-area: 2 / 4 / 4 / 5;
 }
-
+s
 .footer-img {
     height: 10%;
     bottom: 0;
