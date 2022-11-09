@@ -1,9 +1,7 @@
 /* Body */
 
 body {
-    background-image: url("../assets/img/Rectangle.svg");
-    background-repeat: no-repeat;
-    background-position: top  right;
+    background: url("../assets/img/Rectangle.svg") top right no-repeat;
 }
 
 /* Header */
@@ -66,7 +64,7 @@ h1 {
 .main-fine {
     padding: 0 8px;
     color: var(--color-pink);
-    background: url("../assets/img/99\ dp.svg") bottom no-repeat;
+    background: url("../assets/img/pinkBorder.svg") bottom no-repeat;
 }
 
 .text-shadow {
@@ -166,6 +164,12 @@ h1 {
 }
 
 /* Main price box */
+
+.main-price-monthly {
+    color: var(--color-violet);
+    background: url("../assets/img/yellowBorder.svg") bottom no-repeat;
+    background-size: 100%;
+}
 
 .main-price-boxes {
     display: flex;
