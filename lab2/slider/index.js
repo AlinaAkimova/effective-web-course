@@ -2,10 +2,13 @@ const prev   = document.getElementById('slide-prev'),
       next   = document.getElementById('slide-next'),
       slides = document.querySelectorAll('.slide');
 
-let index = 0;
-
+let index = localStorage.getItem('index')  ?? 0;
 //ms
 let duration = 0;
+
+const addToStorage = (n) => {
+    localStorage.setItem('index', n);
+}
 
 const makeTimer = () => {
     clearInterval(duration);
@@ -21,7 +24,11 @@ const activeSlide = n => {
         slide.classList.remove('active');
     }
     slides[n].classList.add('active');
+    addToStorage(index);
+
 }
+
+activeSlide(index);
 
 const nextSlide = () => {
     index = (index + 1) % slides.length;
@@ -53,6 +60,5 @@ document.addEventListener('keyup', e => {
     else if(e.code === 'ArrowLeft')
     prevSlide();
 });
-
 
         

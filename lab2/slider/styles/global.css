@@ -16,8 +16,6 @@
 
 :root {
 	--color-white: #ffffff;
-	--color-violet: #6C5CE7;
-	--color-light-violet: #A29BFE;
 	--color-black: #2D3436;
 }
 
@@ -28,18 +26,7 @@ html{
     color: var(--color-black);
 }
 
-* {
-    margin: 0;
-    padding: 0;
-}
-
-/* 96px */
 h1{
     font-size: 5.5rem;
     letter-spacing: -3px;
-}
-
-/* 77px */
-h2{
-    font-size: 4.2rem;
 }
