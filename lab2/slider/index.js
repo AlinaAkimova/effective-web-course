@@ -4,6 +4,18 @@ const prev   = document.getElementById('slide-prev'),
 
 let index = 0;
 
+//ms
+let duration = 0;
+
+const makeTimer = () => {
+    clearInterval(duration);
+    duration = setInterval(() => {
+        nextSlide();
+    }, 5000)
+}
+
+makeTimer();
+
 const activeSlide = n => {
     for(let slide of slides) {
         slide.classList.remove('active');
@@ -25,15 +37,22 @@ const prevSlide = () => {
     activeSlide(index);
 }
 
-prev.addEventListener('click', prevSlide);
-next.addEventListener('click', nextSlide);
+prev.addEventListener('click', () => {
+    makeTimer();
+    prevSlide();
+});
+next.addEventListener('click', () => {
+    makeTimer();
+    nextSlide();
+});
 
 document.addEventListener('keyup', e => {
+    makeTimer();
     if(e.code === 'ArrowRight' || e.code === 'Space')
         nextSlide();
     else if(e.code === 'ArrowLeft')
     prevSlide();
 });
 
-    
+
         
