@@ -42,7 +42,7 @@ h2{
 	color: var(--color-light-violet);
 }
 
-input:focus, input:hover {
+input:focus {
     outline: 3px solid var(--color-light-violet);
 }
 

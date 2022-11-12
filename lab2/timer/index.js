@@ -19,6 +19,16 @@ timerMinutes.value = minutes;
 timerSeconds.value = seconds;
 
 let isRun = Number(localStorage.getItem("isRun")) ?? 0;
+let isReset = Number(localStorage.getItem("isReset")) ?? 1;
+
+if(isReset){
+    timerMinutes.removeAttribute("disabled");
+    timerSeconds.removeAttribute("disabled");
+}
+else {
+    timerMinutes.setAttribute("disabled", true);
+    timerSeconds.setAttribute("disabled", true);
+}
 
 const minutesChange = (e) => {
     if(e.target.value >= 0){
@@ -58,15 +68,19 @@ const stopPlayMusic = () => {
     audio_file.currentTime = 0;
 }
 
+
 const startTimer = () => {
     if (minutes > 0 || seconds > 0 || isRun) {
 
         minutes = isNaN(parseInt(timerMinutes.value)) ? 0 : parseInt(timerMinutes.value);
         seconds = isNaN(parseInt(timerSeconds.value)) ? 0 : parseInt(timerSeconds.value);
         
+        isReset = 0;
+        localStorage.setItem('isReset', isReset);
+
         buttonRun.removeEventListener('click', startTimer);
-        timerMinutes.classList.add('disable');
-        timerSeconds.classList.add('disable');
+        timerMinutes.setAttribute("disabled", true);
+        timerSeconds.setAttribute("disabled", true);
 
         isRun=1;
         localStorage.setItem("isRun", isRun);
@@ -112,17 +126,24 @@ const resetTimer = () => {
     clearInterval(timer);
     minutes = 0;
     seconds = 0;
-    
+    isReset = 1;
+    isRun = 0;
+
+    localStorage.clear();
+    localStorage.setItem('isReset', isReset);
+    localStorage.setItem('isRun', isRun);
+
     timerMinutes.value = minutes;
     timerSeconds.value = seconds;
 
     buttonRun.addEventListener('click', startTimer);
 
     document.body.classList.remove('red-back');
-    timerMinutes.classList.remove('disable');
-    timerSeconds.classList.remove('disable');
+
+    timerMinutes.removeAttribute("disabled");
+    timerSeconds.removeAttribute("disabled");
+
     stopPlayMusic();
-    localStorage.clear();
 }
 
 // input listener
@@ -135,14 +156,19 @@ buttonStop.addEventListener('click', stopTimer);
 buttonReset.addEventListener('click', resetTimer);
 
 buttonSetOneMinut.addEventListener('click', () => {
-    setTimeByButton(1);
+    if(isReset){
+        setTimeByButton(1);
+    }
 });
 
 buttonSetFiveMinut.addEventListener('click', () => {
-    setTimeByButton(5);
+    if(isReset) {
+        setTimeByButton(5);
+    }
 });
 
 buttonSetTenMinut.addEventListener('click', () => {
-    setTimeByButton(10);
+    if(isReset){
+        setTimeByButton(10);
+    }
 });
-
