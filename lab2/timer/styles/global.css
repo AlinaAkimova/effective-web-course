@@ -1,0 +1,78 @@
+/* Обычный */
+@font-face {
+	font-family: 'Inter'; 
+	src: local('Inter'), url('../fonts/Inter-Regular.ttf') format('truetype'); 
+	font-style: normal;
+	font-weight: normal;
+}
+ 
+/* Жирный */
+@font-face {
+	font-family: 'Inter'; 
+	src: local('Inter'), url('../fonts/Inter-ExtraBold.ttf') format('truetype');
+	font-style: normal;
+	font-weight: bold;
+}
+
+:root {
+	--color-white: #ffffff;
+	--color-black: #2D3436;
+	--color-violet: #6C5CE7;
+	--color-orange: #FDCB6E;
+	--color-pink: #E84393;
+	--color-light-violet: #A29BFE;
+}
+
+html{
+    font-size: 18px;
+    font-family: 'Inter', sans-serif;
+    font-weight: normal;
+    color: var(--color-black);
+}
+
+/* 77px */
+h1{
+    font-size: 4.2rem;
+    letter-spacing: -3px;
+	color: var(--color-violet);
+}
+
+/* 48px */
+h2{
+    font-size: 2.5rem;
+	color: var(--color-light-violet);
+}
+
+input:focus, input:hover {
+    outline: 3px solid var(--color-light-violet);
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+	-moz-appearance:textfield;
+	font-size: 1.5rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: normal;
+}
+
+button{
+    border-radius: 10px;
+    padding: 6px 15px;
+    border: 2px solid var(--color-violet);
+	background-color: var(--color-white);
+    font-size: 1.6rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:active{
+	background-color: var(--color-light-violet);
+}
+
