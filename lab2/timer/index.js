@@ -10,7 +10,7 @@ const buttonSetOneMinut = document.getElementById("one-minut-button");
 const buttonSetFiveMinut = document.getElementById("five-minut-button");
 const buttonSetTenMinut = document.getElementById("ten-minut-button");
 
-
+let audio_file = new Audio('./assets/krya.mp3');
 let minutes = localStorage.getItem("minutes") ?? 0;
 let seconds = localStorage.getItem("seconds") ?? 0;
 let timer = null;
@@ -45,6 +45,19 @@ const setTimeByButton = (time) => {
 
 }
 
+const playMusic = () => {
+    audio_file.loop = true;
+    audio_file.autoplay = true;
+    audio_file.play();
+}
+
+const stopPlayMusic = () => {
+    audio_file.loop = false;
+    audio_file.autoplay = false;
+    audio_file.pause();
+    audio_file.currentTime = 0;
+}
+
 const startTimer = () => {
     if (minutes > 0 || seconds > 0 || isRun) {
 
@@ -66,7 +79,9 @@ const startTimer = () => {
 
             buttonRun.addEventListener('click', startTimer);
 
+            playMusic();
             document.body.classList.add('red-back');
+
         } else if(minutes > 0 && seconds == 0){
             --minutes; 
             timerMinutes.value = `${Math.trunc(minutes)}`;
@@ -106,7 +121,7 @@ const resetTimer = () => {
     document.body.classList.remove('red-back');
     timerMinutes.classList.remove('disable');
     timerSeconds.classList.remove('disable');
-    
+    stopPlayMusic();
     localStorage.clear();
 }
 

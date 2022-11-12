@@ -29,5 +29,5 @@ input {
 }
 
 .red-back {
-    background-color: red;
+    background-color: var(--color-red);
 }

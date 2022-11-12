@@ -18,9 +18,8 @@
 	--color-white: #ffffff;
 	--color-black: #2D3436;
 	--color-violet: #6C5CE7;
-	--color-orange: #FDCB6E;
-	--color-pink: #E84393;
 	--color-light-violet: #A29BFE;
+	--color-red: rgb(218, 117, 117);
 }
 
 html{
