@@ -1,0 +1,32 @@
+/* Обычный */
+@font-face {
+	font-family: 'Inter'; 
+	src: local('Inter'), url('../fonts/Inter-Regular.ttf') format('truetype'); 
+	font-style: normal;
+	font-weight: normal;
+}
+ 
+/* Жирный */
+@font-face {
+	font-family: 'Inter'; 
+	src: local('Inter'), url('../fonts/Inter-ExtraBold.ttf') format('truetype');
+	font-style: normal;
+	font-weight: bold;
+}
+
+:root {
+	--color-white: #ffffff;
+	--color-black: #2D3436;
+}
+
+html{
+    font-size: 18px;
+    font-family: 'Inter', sans-serif;
+    font-weight: normal;
+    color: var(--color-black);
+}
+
+h1{
+    font-size: 5.5rem;
+    letter-spacing: -3px;
+}
