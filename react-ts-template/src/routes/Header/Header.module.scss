@@ -1,0 +1,18 @@
+@import 'src/styles';
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $color-red;
+
+  .headerBottoms {
+    display: flex;
+    justify-content: space-around;
+    min-width: 20%;
+
+    .orangeText {
+      color: $color-orange-light;
+    }
+  }
+}
