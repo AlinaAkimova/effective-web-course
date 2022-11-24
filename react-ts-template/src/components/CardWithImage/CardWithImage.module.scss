@@ -1,0 +1,21 @@
+@import 'src/styles';
+
+.cardContainer {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid $color-black;
+
+  .cardImage {
+    height: 60%;
+  }
+
+  .cardText {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .redText {
+    color: $color-red;
+  }
+}

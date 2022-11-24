@@ -1,0 +1,12 @@
+@import 'src/styles';
+
+.main {
+  display: flex;
+  flex: 1 0 auto;
+  .mainCards {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    margin: 100px 0 100px 0;
+  }
+}

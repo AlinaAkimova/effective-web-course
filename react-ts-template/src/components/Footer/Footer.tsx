@@ -12,7 +12,11 @@ const Footer: FC = () => {
 
   return (
     <footer className={classes.footer}>
-      <img src="marvel_logo.svg" alt="logo marvel" />
+      <img
+        src="/marvel_logo.svg"
+        alt="logo marvel"
+        className={classes.headerLogo}
+      />
       <div>Data provided by Marvel.©{CURRENT_YEAR()}MARVEL</div>
       <Link
         href="https://developer.marvel.com"

@@ -7,7 +7,11 @@ import classes from './Header.module.scss';
 const Header: FC = () => {
   return (
     <Toolbar className={classes.header}>
-      <img src="marvel_logo.svg" alt="logo marvel" />
+      <img
+        src="/marvel_logo.svg"
+        alt="logo marvel"
+        className={classes.headerLogo}
+      />
       <div className={classes.headerBottoms}>
         <Link
           href="components/Characters"

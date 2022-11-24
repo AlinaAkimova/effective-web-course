@@ -6,6 +6,11 @@
   align-items: center;
   background-color: $color-red;
 
+  .headerLogo {
+    max-width: 10%;
+    max-height: 60%;
+  }
+
   .headerBottoms {
     display: flex;
     justify-content: space-around;
