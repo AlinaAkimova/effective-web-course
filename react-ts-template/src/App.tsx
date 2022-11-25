@@ -1,9 +1,13 @@
 import React, { FC } from 'react';
-import { RouterProvider } from 'react-router-dom';
-import router from 'routes';
+import { BrowserRouter } from 'react-router-dom';
+import Router from 'routes';
 
 const App: FC = () => {
-  return <RouterProvider router={router} />;
+  return (
+    <BrowserRouter>
+      <Router />
+    </BrowserRouter>
+  );
 };
 
 export default App;

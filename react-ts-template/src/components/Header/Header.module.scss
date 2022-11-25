@@ -18,6 +18,10 @@
 
     .orangeText {
       color: $color-orange-light;
+
+      &:hover :focus {
+        border-bottom: 1px solid $color-orange-light;
+      }
     }
   }
 }

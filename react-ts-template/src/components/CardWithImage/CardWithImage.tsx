@@ -1,5 +1,4 @@
 import React, { FC } from 'react';
-import { Toolbar, Link } from '@mui/material';
 
 // Types
 import { ICard } from 'types/card';
@@ -13,7 +12,7 @@ interface IComponentCard {
 const CardWithImage: FC<IComponentCard> = ({ item }) => {
   return (
     <div className={classes.cardContainer}>
-      <div className={classes.cardImage}>{item.cardImage}</div>
+      <img src={item.cardImage} height="60%" width="100%" alt="img" />
       <div className={classes.cardText}>
         <div className={classes.redText}>{item.cardName}</div>
         <div>{item.cardDesc}</div>

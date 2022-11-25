@@ -1,0 +1,27 @@
+@import 'src/styles';
+
+.searchBase {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 30px;
+
+  .searchInput {
+    width: 80%;
+
+    &:focus {
+      outline: 1px solid $color-orange-light;
+    }
+  }
+
+  .searchButton {
+    color: $color-white;
+    background-color: $color-orange-light;
+    width: 10%;
+    height: 100%;
+  }
+
+  .searchButton:hover {
+    background-color: $color-orange-light;
+  }
+}

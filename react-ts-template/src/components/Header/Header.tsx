@@ -1,5 +1,7 @@
 import React, { FC } from 'react';
-import { Toolbar, Link } from '@mui/material';
+import { Link } from 'react-router-dom';
+
+import { Toolbar } from '@mui/material';
 
 // Styles
 import classes from './Header.module.scss';
@@ -12,29 +14,25 @@ const Header: FC = () => {
         alt="logo marvel"
         className={classes.headerLogo}
       />
-      <div className={classes.headerBottoms}>
-        <Link
-          href="components/Characters"
-          underline="hover"
-          className={classes.orangeText}
-        >
-          Characters
-        </Link>
-        <Link
-          href="components/Comics"
-          underline="hover"
-          className={classes.orangeText}
-        >
-          Comics
-        </Link>
-        <Link
-          href="components/Series"
-          underline="hover"
-          className={classes.orangeText}
-        >
-          Series
-        </Link>
-      </div>
+      <nav className={classes.headerBottoms}>
+        <ul>
+          <li>
+            <Link to="/characters" className={classes.orangeText}>
+              Characters
+            </Link>
+          </li>
+          <li>
+            <Link to="/comics" className={classes.orangeText}>
+              Comics
+            </Link>
+          </li>
+          <li>
+            <Link to="/series" className={classes.orangeText}>
+              Series
+            </Link>
+          </li>
+        </ul>
+      </nav>
     </Toolbar>
   );
 };

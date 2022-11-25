@@ -2,11 +2,13 @@
 
 .main {
   display: flex;
+  justify-content: space-around;
   flex: 1 0 auto;
+
   .mainCards {
-    display: grid;
-    gap: 20px;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
     margin: 100px 0 100px 0;
   }
 }

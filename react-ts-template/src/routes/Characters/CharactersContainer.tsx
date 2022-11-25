@@ -4,17 +4,19 @@ import React, { FC } from 'react';
 import Footer from 'components/Footer';
 import Header from 'components/Header';
 import CardsContainer from 'components/CardsContainer';
+import SearchBase from 'components/SearchBase';
 
 // Routes
-import { listCharacters } from 'routes/Characters';
+import { listCharacters } from 'routes/Characters/Characters';
 
-const Container: FC = () => {
+const CharactersContainer: FC = () => {
   return (
     <div>
       <Header />
+      <SearchBase />
       <CardsContainer listItem={listCharacters} />
       <Footer />
     </div>
   );
 };
-export default Container;
+export default CharactersContainer;

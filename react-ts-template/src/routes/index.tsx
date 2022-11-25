@@ -1,14 +1,26 @@
-// В этом файле массив со всем путями / роутами приложения
-import React from 'react';
-import { createBrowserRouter } from 'react-router-dom';
+import React, { FC } from 'react';
+import { Navigate, useRoutes } from 'react-router-dom';
 
-import Container from 'routes/container';
+// Routes
+import CharactersContainer from 'routes/Characters/CharactersContainer';
+import ComicsContainer from 'routes/Comics/ComicsContainer';
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Container />
-  }
-]);
+const Router: FC = () => {
+  const router = useRoutes([
+    {
+      index: true,
+      element: <Navigate to="characters" />
+    },
+    {
+      path: '/characters',
+      element: <CharactersContainer />
+    },
+    {
+      path: '/comics',
+      element: <ComicsContainer />
+    }
+  ]);
 
-export default router;
+  return router;
+};
+export default Router;
