@@ -19,7 +19,7 @@ const SearchBase: FC<ISearch> = ({ pageName, count }) => {
         <TextField
           fullWidth
           id="outlined-basic"
-          placeholder="Search for by name"
+          placeholder={`Search for ${pageName} by name`}
           variant="outlined"
           className={classes.searchInput}
         />
