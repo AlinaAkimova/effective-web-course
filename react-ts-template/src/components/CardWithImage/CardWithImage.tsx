@@ -12,7 +12,7 @@ interface IComponentCard {
 const CardWithImage: FC<IComponentCard> = ({ item }) => {
   return (
     <div className={classes.cardContainer}>
-      <img src={item.cardImage} height="60%" width="100%" alt="img" />
+      <img src={item.cardImage} height="68%" width="100%" alt="img" />
       <div className={classes.cardText}>
         <div className={classes.redText}>{item.cardName}</div>
         <div>{item.cardDesc}</div>

@@ -2,13 +2,13 @@
 
 .main {
   display: flex;
-  justify-content: space-around;
   flex: 1 0 auto;
+  flex-direction: column;
+  justify-content: space-around;
 
   .mainCards {
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
     flex-wrap: wrap;
-    margin: 100px 0 100px 0;
   }
 }

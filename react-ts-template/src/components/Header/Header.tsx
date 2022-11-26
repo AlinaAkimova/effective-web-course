@@ -15,7 +15,7 @@ const Header: FC = () => {
         className={classes.headerLogo}
       />
       <nav className={classes.headerBottoms}>
-        <ul>
+        <ul className={classes.headerBottomsList}>
           <li>
             <Link to="/characters" className={classes.orangeText}>
               Characters

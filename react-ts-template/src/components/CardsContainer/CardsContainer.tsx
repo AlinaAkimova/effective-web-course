@@ -20,7 +20,7 @@ const CardsContainer: FC<ICardsContainer> = ({ listItem }) => {
     <main className={classes.main}>
       <div className={classes.mainCards}>
         {listItem.map((option) => (
-          <CardWithImage item={option} />
+          <CardWithImage key={option.cardName} item={option} />
         ))}
       </div>
     </main>

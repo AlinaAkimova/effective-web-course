@@ -4,6 +4,7 @@ import { Navigate, useRoutes } from 'react-router-dom';
 // Routes
 import CharactersContainer from 'routes/Characters/CharactersContainer';
 import ComicsContainer from 'routes/Comics/ComicsContainer';
+import SeriesContainer from './Series/SeriesContainer';
 
 const Router: FC = () => {
   const router = useRoutes([
@@ -18,6 +19,10 @@ const Router: FC = () => {
     {
       path: '/comics',
       element: <ComicsContainer />
+    },
+    {
+      path: '/series',
+      element: <SeriesContainer />
     }
   ]);
 

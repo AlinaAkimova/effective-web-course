@@ -10,17 +10,20 @@
     max-width: 10%;
     max-height: 60%;
   }
-
   .headerBottoms {
-    display: flex;
-    justify-content: space-around;
-    min-width: 20%;
+    min-width: 25%;
 
-    .orangeText {
-      color: $color-orange-light;
+    .headerBottomsList {
+      display: flex;
+      justify-content: space-around;
+      list-style-type: none;
 
-      &:hover :focus {
-        border-bottom: 1px solid $color-orange-light;
+      .orangeText {
+        color: $color-orange-light;
+
+        &:hover :focus {
+          border-bottom: 1px solid $color-orange-light;
+        }
       }
     }
   }

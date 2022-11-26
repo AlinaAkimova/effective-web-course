@@ -3,10 +3,11 @@
 .cardContainer {
   display: flex;
   flex-direction: column;
-  border: 2px solid $color-black;
-  width: 15%;
-  height: 400px;
-  margin-bottom: 60px;
+  border: 1px solid $color-black;
+  width: 17%;
+  height: 450px;
+  margin: 70px 0 50px 40px;
+  
   .cardText {
     display: flex;
     flex-direction: column;
