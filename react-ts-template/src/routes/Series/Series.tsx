@@ -9,13 +9,13 @@ export const listSeries: ICard[] = [
   },
   {
     cardImage: 'src/assets/series/thor.jpg',
-    cardName: 'WandaVision',
+    cardName: 'Thor',
     cardDesc: '2021'
   },
   {
     cardImage: 'src/assets/series/wanda.jpg',
-    cardName: 'Avengers Vs. X-Men #9',
-    cardDesc: 'Aaron, Cheung'
+    cardName: 'WandaVision',
+    cardDesc: '2021'
   },
   {
     cardImage: 'src/assets/series/loki.jpg',

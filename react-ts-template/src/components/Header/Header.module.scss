@@ -2,6 +2,7 @@
 
 .header {
   display: flex;
+  flex: 0 0 auto;
   justify-content: space-between;
   align-items: center;
   background-color: $color-red;
@@ -18,12 +19,17 @@
       justify-content: space-around;
       list-style-type: none;
 
-      .orangeText {
+      .orangeTextDecorationNone {
         color: $color-orange-light;
+        text-decoration: none;
 
-        &:hover :focus {
-          border-bottom: 1px solid $color-orange-light;
+        &:hover {
+          text-decoration: underline;
         }
+      }
+      .orangeTextDecoration {
+        color: $color-orange-light;
+        text-decoration: underline;
       }
     }
   }

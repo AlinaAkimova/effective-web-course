@@ -1,8 +1,9 @@
 import React, { FC } from 'react';
 
-import { Grid } from '@mui/material';
+import { Container } from '@mui/material';
 
 // Components
+import SearchBase from 'components/SearchBase';
 import CardWithImage from 'components/CardWithImage';
 
 // Types
@@ -12,18 +13,20 @@ import { ICard } from 'types/card';
 import classes from './CardsContainer.module.scss';
 
 interface ICardsContainer {
+  pageName: string;
   listItem: ICard[];
 }
 
-const CardsContainer: FC<ICardsContainer> = ({ listItem }) => {
+const CardsContainer: FC<ICardsContainer> = ({ pageName, listItem }) => {
   return (
-    <main className={classes.main}>
+    <Container>
+      <SearchBase pageName={pageName} count={listItem.length} />
       <div className={classes.mainCards}>
         {listItem.map((option) => (
           <CardWithImage key={option.cardName} item={option} />
         ))}
       </div>
-    </main>
+    </Container>
   );
 };
 export default CardsContainer;

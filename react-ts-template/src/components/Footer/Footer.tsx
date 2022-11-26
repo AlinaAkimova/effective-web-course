@@ -17,7 +17,7 @@ const Footer: FC = () => {
         alt="logo marvel"
         className={classes.headerLogo}
       />
-      <div>Data provided by Marvel.©{CURRENT_YEAR()}MARVEL</div>
+      <div>Data provided by Marvel.©{CURRENT_YEAR()} MARVEL</div>
       <Link
         href="https://developer.marvel.com"
         underline="hover"

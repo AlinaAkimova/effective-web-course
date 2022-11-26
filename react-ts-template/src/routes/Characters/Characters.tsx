@@ -27,10 +27,5 @@ export const listCharacters: ICard[] = [
     cardImage: 'src/assets/characters/abomination.jpg',
     cardName: 'Abomination',
     cardDesc: 'No description provided'
-  },
-  {
-    cardImage: 'src/assets/characters/abyss.jpg',
-    cardName: 'Abyss',
-    cardDesc: 'No description provided'
   }
 ];

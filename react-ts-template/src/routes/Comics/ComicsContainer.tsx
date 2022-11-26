@@ -4,17 +4,18 @@ import React, { FC } from 'react';
 import Footer from 'components/Footer';
 import Header from 'components/Header';
 import CardsContainer from 'components/CardsContainer';
-import SearchBase from 'components/SearchBase';
+
+// Styles
+import classes from 'routes/Routes.module.scss';
 
 // Routes
 import { listComics } from './Comics';
 
 const ComicsContainer: FC = () => {
   return (
-    <div>
+    <div className={classes.maxHeight}>
       <Header />
-      <SearchBase />
-      <CardsContainer listItem={listComics} />
+      <CardsContainer pageName="Comics" listItem={listComics} />
       <Footer />
     </div>
   );
