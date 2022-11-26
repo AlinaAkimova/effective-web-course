@@ -20,7 +20,7 @@ const SearchBase: FC<ISearch> = ({ pageName, count }) => {
           fullWidth
           id="outlined-basic"
           placeholder={`Search for ${pageName} by name`}
-          variant="outlined"
+          color="info"
           className={classes.searchInput}
         />
         <Button variant="contained" className={classes.searchButton}>

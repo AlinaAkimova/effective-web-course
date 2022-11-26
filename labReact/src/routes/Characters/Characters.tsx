@@ -8,10 +8,10 @@ export const listCharacters: ICard[] = [
     cardDesc: 'No description provided'
   },
   {
-    cardImage: 'src/assets/characters/abomb.jpg',
+    cardImage: 'src/assets/characters/a-b.jpg',
     cardName: 'A-Bomb (HAS)',
     cardDesc:
-      'Rick Jones has been Hulk best bud since day one, but now he is more than a friend... he is a teammate! Transformed by a...'
+      'Rick Jones has been Hulk best bud since day one, but now he is more than a friend... he is a teammate!'
   },
   {
     cardImage: 'src/assets/characters/aim.jpg',
