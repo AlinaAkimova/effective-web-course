@@ -1,0 +1,17 @@
+.cardContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .cardText {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .textColumn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}

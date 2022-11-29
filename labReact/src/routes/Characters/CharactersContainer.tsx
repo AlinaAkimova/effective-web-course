@@ -9,13 +9,13 @@ import CardsContainer from 'components/CardsContainer';
 import classes from 'routes/Routes.module.scss';
 
 // Routes
-import { listCharacters } from 'routes/Characters/Characters';
+import { characters } from 'routes/Dependencies/Dependencies';
 
 const CharactersContainer: FC = () => {
   return (
     <div className={classes.maxHeight}>
       <Header />
-      <CardsContainer pageName="Characters" listItem={listCharacters} />
+      <CardsContainer pageName="Characters" listItem={characters} />
       <Footer />
     </div>
   );
