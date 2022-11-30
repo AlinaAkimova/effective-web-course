@@ -1,0 +1,27 @@
+@import 'src/styles';
+
+.cardContainer {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid $color-black;
+  width: 250px;
+  height: 450px;
+  margin: 70px 0 0 0;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 70%;
+  }
+
+  .cardText {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: 20px;
+  }
+
+  .redText {
+    color: $color-red;
+  }
+}

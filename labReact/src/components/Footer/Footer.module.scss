@@ -1,0 +1,19 @@
+@import 'src/styles';
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: $color-grey;
+  color: $color-white;
+  padding: 20px 0 7px 15px;
+
+  .headerLogo {
+    max-width: 10%;
+    max-height: 60%;
+  }
+
+  .whiteText {
+    color: $color-white;
+  }
+}
