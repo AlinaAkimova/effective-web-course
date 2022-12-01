@@ -18,9 +18,8 @@ interface ICardsContainer {
 }
 
 const CardsContainer: FC<ICardsContainer> = ({ pageName, listItem }) => {
-  console.log(listItem[1].comics);
   return (
-    <Container>
+    <Container className={classes.mainCardsContainer}>
       <SearchBase pageName={pageName} count={listItem.length} />
       <div className={classes.mainCards}>
         {listItem.map((option) => (

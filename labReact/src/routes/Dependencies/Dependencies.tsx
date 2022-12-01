@@ -45,10 +45,14 @@ series[3].characters?.push(characters[3]);
 series[4].characters?.push(characters[4]);
 
 comics[0].series?.push(series[1]);
+comics[1].series?.push(series[2]);
 comics[2].series?.push(series[3]);
 comics[3].series?.push(series[4]);
+comics[1].series?.push(series[0]);
 
+series[0].comics?.push(comics[1]);
 series[1].comics?.push(comics[0]);
+series[2].comics?.push(comics[1]);
 series[3].comics?.push(comics[2]);
 series[4].comics?.push(comics[3]);
 

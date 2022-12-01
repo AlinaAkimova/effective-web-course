@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
-import { createBrowserRouter, Navigate, useRoutes } from 'react-router-dom';
+import React from 'react';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
 
 // Components
 import DetailedCard from 'components/DetailedCard';
@@ -7,7 +7,7 @@ import DetailedCard from 'components/DetailedCard';
 // Routes
 import CharactersContainer from 'routes/Characters/CharactersContainer';
 import ComicsContainer from 'routes/Comics/ComicsContainer';
-import { characters } from './Dependencies/Dependencies';
+import { characters, comics, series } from './Dependencies/Dependencies';
 import SeriesContainer from './Series/SeriesContainer';
 
 export const router = createBrowserRouter([
@@ -34,7 +34,27 @@ export const router = createBrowserRouter([
     element: <ComicsContainer />
   },
   {
+    path: '/comics/:comicsId',
+    element: <DetailedCard />,
+    loader: ({ params }) => {
+      console.log(params.comicsId);
+      return comics.find(
+        (element) => element.cardId === Number(params.comicsId)
+      );
+    }
+  },
+  {
     path: '/series',
     element: <SeriesContainer />
+  },
+  {
+    path: '/series/:seriesId',
+    element: <DetailedCard />,
+    loader: ({ params }) => {
+      console.log(params.seriesId);
+      return series.find(
+        (element) => element.cardId === Number(params.seriesId)
+      );
+    }
   }
 ]);

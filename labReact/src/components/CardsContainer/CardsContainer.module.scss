@@ -1,8 +1,13 @@
 @import 'src/styles';
 
-.mainCards {
+.mainCardsContainer {
   display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  margin-bottom: 50px;
+  flex: 1 0 auto;
+
+  .mainCards {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 50px;
+  }
 }

@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Link, useMatch } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 // Types
 import { ICard } from 'types/card';
@@ -12,23 +12,14 @@ interface IComponentCard {
   item: ICard;
 }
 const CardWithImage: FC<IComponentCard> = ({ pageName, item }) => {
-  const handleOnClick = (url: string) => {
-    window.open(url, '_blanc', 'noopener,noreferrer');
-  };
-
   return (
-    <div
-      className={classes.cardContainer}
-      onClick={() => {
-        handleOnClick(`https://localhost:5173/${pageName}/${item.cardId}`);
-      }}
-    >
+    <Link to={`/${pageName}/${item.cardId}`} className={classes.cardContainer}>
       <img src={item.cardImage} alt="img" />
       <div className={classes.cardText}>
         <div className={classes.redText}>{item.cardName}</div>
         <div>{item.cardDesc}</div>
       </div>
-    </div>
+    </Link>
   );
 };
 export default CardWithImage;
