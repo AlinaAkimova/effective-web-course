@@ -23,7 +23,6 @@ export const router = createBrowserRouter([
     path: '/characters/:characterId',
     element: <DetailedCard />,
     loader: ({ params }) => {
-      console.log(params.characterId);
       return characters.find(
         (element) => element.cardId === Number(params.characterId)
       );
@@ -37,7 +36,6 @@ export const router = createBrowserRouter([
     path: '/comics/:comicsId',
     element: <DetailedCard />,
     loader: ({ params }) => {
-      console.log(params.comicsId);
       return comics.find(
         (element) => element.cardId === Number(params.comicsId)
       );
@@ -51,7 +49,6 @@ export const router = createBrowserRouter([
     path: '/series/:seriesId',
     element: <DetailedCard />,
     loader: ({ params }) => {
-      console.log(params.seriesId);
       return series.find(
         (element) => element.cardId === Number(params.seriesId)
       );

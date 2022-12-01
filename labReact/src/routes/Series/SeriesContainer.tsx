@@ -15,7 +15,7 @@ const SeriesContainer: FC = () => {
   return (
     <div className={classes.maxHeight}>
       <Header />
-      <CardsContainer pageName="Series" listItem={series} />
+      <CardsContainer pageName="series" listItem={series} />
       <Footer />
     </div>
   );

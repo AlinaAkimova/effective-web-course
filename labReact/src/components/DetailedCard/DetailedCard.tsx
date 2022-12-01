@@ -39,12 +39,12 @@ const DetailedCard: FC = () => {
             <ul>
               {contact.cardType === 'CHARACTER'
                 ? contact.comics?.map((el) => (
-                    <li>
+                    <li key={el.cardId}>
                       <Link to={`/comics/${el.cardId}`}>{el.cardName}</Link>
                     </li>
                   ))
                 : contact.characters?.map((el) => (
-                    <li>
+                    <li key={el.cardId}>
                       <Link to={`/characters/${el.cardId}`}>{el.cardName}</Link>
                     </li>
                   ))}
@@ -57,12 +57,12 @@ const DetailedCard: FC = () => {
               <ul>
                 {contact.cardType === 'SERIES'
                   ? contact.comics?.map((el) => (
-                      <li>
+                      <li key={el.cardId}>
                         <Link to={`/comics/${el.cardId}`}>{el.cardName}</Link>
                       </li>
                     ))
                   : contact.series?.map((el) => (
-                      <li>
+                      <li key={el.cardId}>
                         <Link to={`/series/${el.cardId}`}>{el.cardName}</Link>
                       </li>
                     ))}
