@@ -19,11 +19,15 @@ interface ICardsContainer {
 
 const CardsContainer: FC<ICardsContainer> = ({ pageName, listItem }) => {
   return (
-    <Container>
+    <Container className={classes.mainCardsContainer}>
       <SearchBase pageName={pageName} count={listItem.length} />
       <div className={classes.mainCards}>
         {listItem.map((option) => (
-          <CardWithImage key={option.cardName} item={option} />
+          <CardWithImage
+            key={option.cardName}
+            pageName={pageName}
+            item={option}
+          />
         ))}
       </div>
     </Container>

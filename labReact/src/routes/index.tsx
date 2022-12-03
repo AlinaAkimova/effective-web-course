@@ -1,31 +1,57 @@
-import React, { FC } from 'react';
-import { Navigate, useRoutes } from 'react-router-dom';
+import React from 'react';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
+
+// Components
+import DetailedCard from 'components/DetailedCard';
 
 // Routes
 import CharactersContainer from 'routes/Characters/CharactersContainer';
 import ComicsContainer from 'routes/Comics/ComicsContainer';
+import { characters, comics, series } from './Dependencies/Dependencies';
 import SeriesContainer from './Series/SeriesContainer';
 
-const Router: FC = () => {
-  const router = useRoutes([
-    {
-      index: true,
-      element: <Navigate to="characters" />
-    },
-    {
-      path: '/characters',
-      element: <CharactersContainer />
-    },
-    {
-      path: '/comics',
-      element: <ComicsContainer />
-    },
-    {
-      path: '/series',
-      element: <SeriesContainer />
+export const router = createBrowserRouter([
+  {
+    index: true,
+    element: <Navigate to="characters" />
+  },
+  {
+    path: '/characters',
+    element: <CharactersContainer />
+  },
+  {
+    path: '/characters/:characterId',
+    element: <DetailedCard />,
+    loader: ({ params }) => {
+      return characters.find(
+        (element) => element.cardId === Number(params.characterId)
+      );
     }
-  ]);
-
-  return router;
-};
-export default Router;
+  },
+  {
+    path: '/comics',
+    element: <ComicsContainer />
+  },
+  {
+    path: '/comics/:comicsId',
+    element: <DetailedCard />,
+    loader: ({ params }) => {
+      return comics.find(
+        (element) => element.cardId === Number(params.comicsId)
+      );
+    }
+  },
+  {
+    path: '/series',
+    element: <SeriesContainer />
+  },
+  {
+    path: '/series/:seriesId',
+    element: <DetailedCard />,
+    loader: ({ params }) => {
+      return series.find(
+        (element) => element.cardId === Number(params.seriesId)
+      );
+    }
+  }
+]);
