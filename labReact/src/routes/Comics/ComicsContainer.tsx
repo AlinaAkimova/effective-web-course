@@ -1,4 +1,8 @@
-import React, { FC } from 'react';
+import React, { FC, useState, useEffect } from 'react';
+import { observer } from 'mobx-react-lite';
+
+// Stores
+import comicsStore from 'stores/ComicsStore';
 
 // Components
 import Footer from 'components/Footer';
@@ -8,16 +12,24 @@ import CardsContainer from 'components/CardsContainer';
 // Styles
 import classes from 'routes/Routes.module.scss';
 
-// Routes
-import { comics } from 'routes/Dependencies/Dependencies';
+const ComicsContainer: FC = observer(() => {
+  const { comicsList } = comicsStore;
 
-const ComicsContainer: FC = () => {
-  return (
+  useEffect(() => {
+    comicsStore.loadComics();
+  }, []);
+  console.log(comicsList);
+
+  return comicsList.length ? (
     <div className={classes.maxHeight}>
       <Header />
-      <CardsContainer pageName="comics" listItem={comics} />
+      <CardsContainer pageName="comics" listItem={comicsList} />
       <Footer />
     </div>
+  ) : (
+    <div>
+      <h2>Loading...</h2>
+    </div>
   );
-};
+});
 export default ComicsContainer;
