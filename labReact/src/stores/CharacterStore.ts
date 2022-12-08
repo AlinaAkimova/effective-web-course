@@ -10,7 +10,7 @@ import {
 import { ICard } from 'types/card';
 
 // API
-import { getCharacters } from '../api/characters';
+import { getCharacter, getCharacters } from '../api/characters';
 
 class CharacterStore {
   @observable
@@ -21,6 +21,14 @@ class CharacterStore {
 
   @observable
   loading: boolean = false;
+
+  @observable
+  id: number = 0;
+
+  @action
+  setId = (id: number): void => {
+    this.id = id;
+  };
 
   constructor() {
     makeObservable(this);
@@ -39,9 +47,25 @@ class CharacterStore {
   @action
   loadCharacters = async (): Promise<void> => {
     try {
-      const data = await getCharacters(2);
+      const data = await getCharacters(0);
       runInAction(() => {
         this.characters = data;
+      });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      runInAction(() => {
+        this.loading = false;
+      });
+    }
+  };
+
+  @action
+  loadCharacter = async (): Promise<void> => {
+    try {
+      const data = await getCharacter(this.id);
+      runInAction(() => {
+        this.characters[this.id] = data;
       });
     } catch (error) {
       console.error(error);

@@ -7,13 +7,13 @@ import comicsStore from 'stores/ComicsStore';
 // Components
 import Footer from 'components/Footer';
 import Header from 'components/Header';
-import CardsContainer from 'components/CardsContainer';
+import DetailedCard from 'components/DetailedCard';
 
 // Styles
 import classes from 'routes/Routes.module.scss';
 
 const ComicsContainer: FC = observer(() => {
-  const { comicsList, setId } = comicsStore;
+  const { comicsList } = comicsStore;
 
   useEffect(() => {
     comicsStore.loadComics();
@@ -23,11 +23,7 @@ const ComicsContainer: FC = observer(() => {
   return comicsList.length ? (
     <div className={classes.maxHeight}>
       <Header />
-      <CardsContainer
-        pageName="comics"
-        listItem={comicsList}
-        openCard={setId}
-      />
+      {/* <DetailedCard item={comicsList} /> */}
       <Footer />
     </div>
   ) : (

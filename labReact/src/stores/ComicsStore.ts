@@ -22,6 +22,14 @@ class ComicsStore {
   @observable
   loading: boolean = false;
 
+  @observable
+  id: number = 0;
+
+  @action
+  setId = (id: number): void => {
+    this.id = id;
+  };
+
   constructor() {
     makeObservable(this);
   }

@@ -26,6 +26,14 @@ class SeriesStore {
     makeObservable(this);
   }
 
+  @observable
+  id: number = 0;
+
+  @action
+  setId = (id: number): void => {
+    this.id = id;
+  };
+
   @computed
   get seriesList() {
     return this.series;

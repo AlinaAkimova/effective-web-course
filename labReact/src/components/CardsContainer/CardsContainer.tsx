@@ -15,9 +15,14 @@ import classes from './CardsContainer.module.scss';
 interface ICardsContainer {
   pageName: string;
   listItem: ICard[];
+  openCard(id: number): void;
 }
 
-const CardsContainer: FC<ICardsContainer> = ({ pageName, listItem }) => {
+const CardsContainer: FC<ICardsContainer> = ({
+  pageName,
+  listItem,
+  openCard
+}) => {
   return (
     <Container className={classes.mainCardsContainer}>
       <SearchBase pageName={pageName} count={listItem.length} />
@@ -27,6 +32,7 @@ const CardsContainer: FC<ICardsContainer> = ({ pageName, listItem }) => {
             key={option.cardName}
             pageName={pageName}
             item={option}
+            openCard={openCard}
           />
         ))}
       </div>
