@@ -22,6 +22,9 @@ class SeriesStore {
   @observable
   loading: boolean = false;
 
+  @observable
+  offset: number = 0;
+
   constructor() {
     makeObservable(this);
   }
@@ -40,6 +43,16 @@ class SeriesStore {
   }
 
   @action
+  setOffset = (offset: number) => {
+    this.offset = offset;
+  };
+
+  @action
+  incrementOffset = () => {
+    this.offset += 20;
+  };
+
+  @action
   setQuery = (query: string): void => {
     this.query = query;
   };
@@ -48,10 +61,10 @@ class SeriesStore {
   loadSeries = async (): Promise<void> => {
     try {
       this.loading = true;
-      const data = await getSeries(3);
+      const data = await getSeries(this.offset);
 
       runInAction(() => {
-        this.series = data;
+        this.series = [...this.series, ...data];
       });
     } catch (error) {
       console.error(error);

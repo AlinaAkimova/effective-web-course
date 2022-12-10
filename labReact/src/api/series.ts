@@ -31,7 +31,7 @@ interface ICardsResponse {
 
 export const getSeries = (offset: number) => {
   return axios
-    .get<ICardsResponse>('/v1/public/comics', { params: { offset } })
+    .get<ICardsResponse>('/v1/public/series', { params: { offset } })
     .then((characters) => {
       return <ICard[]>characters.data.data.results.map((character) => {
         return <ICard>{

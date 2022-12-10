@@ -25,6 +25,12 @@ class ComicsStore {
   @observable
   id: number = 0;
 
+  @observable
+  offset: number = 0;
+
+  @observable
+  load: boolean = false;
+
   @action
   setId = (id: number): void => {
     this.id = id;
@@ -40,6 +46,16 @@ class ComicsStore {
   }
 
   @action
+  setOffset = (offset: number) => {
+    this.offset = offset;
+  };
+
+  @action
+  incrementOffset = () => {
+    this.offset += 20;
+  };
+
+  @action
   setQuery = (query: string): void => {
     this.query = query;
   };
@@ -47,10 +63,10 @@ class ComicsStore {
   @action
   loadComics = async (): Promise<void> => {
     try {
-      const data = await getComics(1);
+      const data = await getComics(this.offset);
 
       runInAction(() => {
-        this.comics = data;
+        this.comics = [...this.comics, ...data];
       });
     } catch (error) {
       console.error(error);

@@ -5,8 +5,6 @@ import { observer } from 'mobx-react-lite';
 import characterStore from 'stores/CharacterStore';
 
 // Components
-import Footer from 'components/Footer';
-import Header from 'components/Header';
 import DetailedCard from 'components/DetailedCard';
 
 // Styles
@@ -27,9 +25,7 @@ const CharacterDetailed: FC = observer(() => {
 
   return charactersList.length ? (
     <div className={classes.maxHeight}>
-      <Header />
       <DetailedCard item={FindElement()} />
-      <Footer />
     </div>
   ) : (
     <div>

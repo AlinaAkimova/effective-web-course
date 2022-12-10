@@ -25,14 +25,27 @@ class CharacterStore {
   @observable
   id: number = 0;
 
+  @observable
+  offset: number = 0;
+
+  constructor() {
+    makeObservable(this);
+  }
+
   @action
   setId = (id: number): void => {
     this.id = id;
   };
 
-  constructor() {
-    makeObservable(this);
-  }
+  @action
+  setOffset = (offset: number) => {
+    this.offset = offset;
+  };
+
+  @action
+  incrementOffset = () => {
+    this.offset += 20;
+  };
 
   @computed
   get charactersList() {
@@ -47,9 +60,9 @@ class CharacterStore {
   @action
   loadCharacters = async (): Promise<void> => {
     try {
-      const data = await getCharacters(0);
+      const data = await getCharacters(this.offset);
       runInAction(() => {
-        this.characters = data;
+        this.characters = [...this.characters, ...data];
       });
     } catch (error) {
       console.error(error);
