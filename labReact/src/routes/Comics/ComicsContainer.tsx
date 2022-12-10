@@ -10,6 +10,7 @@ import comicsStore from 'stores/ComicsStore';
 // Components
 import Footer from 'components/Footer';
 import Header from 'components/Header';
+import SearchBase from 'components/SearchBase';
 import CardWithImage from 'components/CardWithImage';
 
 // Styles
@@ -22,7 +23,8 @@ const ComicsList = styled.div`
 `;
 
 const ComicsContainer: FC = observer(() => {
-  const { comicsList, setId, loadComics, offset } = comicsStore;
+  const { comicsList, setId, loadComics, offset, query, setQuery } =
+    comicsStore;
 
   const loadNext = useCallback(() => {
     return setTimeout(() => {
@@ -38,18 +40,32 @@ const ComicsContainer: FC = observer(() => {
   return comicsList.length ? (
     <div className={classes.maxHeight}>
       <Header />
-      {/* <CardsContainer
+      <SearchBase
         pageName="comics"
-        listItem={comicsList}
-        openCard={setId}
-      /> */}
+        count={20}
+        query={query}
+        setQuery={setQuery}
+      />
       <VirtuosoGrid
         components={{
           Item: Grid,
           List: ComicsList as ComponentType<
             GridListProps & { context?: unknown }
           >,
-          ScrollSeekPlaceholder: () => <Grid item xs={3} />
+          ScrollSeekPlaceholder: () => <Grid item xs={3} />,
+          Footer: () => {
+            return (
+              <div
+                style={{
+                  padding: '2rem',
+                  display: 'flex',
+                  justifyContent: 'center'
+                }}
+              >
+                Loading...
+              </div>
+            );
+          }
         }}
         overscan={200}
         data={comicsList}
@@ -66,4 +82,5 @@ const ComicsContainer: FC = observer(() => {
     </div>
   );
 });
+
 export default ComicsContainer;

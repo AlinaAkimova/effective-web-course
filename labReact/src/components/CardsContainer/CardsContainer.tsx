@@ -22,7 +22,7 @@ const CardsContainer: FC<ICardsContainer> = observer(
   ({ pageName, listItem, openCard }) => {
     return (
       <Container className={classes.mainCardsContainer}>
-        <SearchBase pageName={pageName} count={listItem.length} />
+        {/* <SearchBase pageName={pageName} count={listItem.length} /> */}
         <div className={classes.mainCards}>
           {listItem.map((option) => (
             <CardWithImage
