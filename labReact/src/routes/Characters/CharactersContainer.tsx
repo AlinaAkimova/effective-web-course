@@ -32,7 +32,8 @@ const CharactersContainer: FC = observer(() => {
     offset,
     query,
     setQuery,
-    incrementOffset
+    incrementOffset,
+    total
   } = characterStore;
 
   const loadNext = useCallback(() => {
@@ -52,7 +53,7 @@ const CharactersContainer: FC = observer(() => {
         <div className={classes.mainSize}>
           <SearchBase
             pageName="characters"
-            count={20}
+            count={total}
             query={query}
             setQuery={setQuery}
           />
@@ -66,7 +67,11 @@ const CharactersContainer: FC = observer(() => {
               >,
               ScrollSeekPlaceholder: () => <Grid item xs={3} />,
               Footer: () => {
-                return <div className={classes.virtuosoFooter}>Loading...</div>;
+                return offset + 20 < total ? (
+                  <div className={classes.virtuosoFooter}>Loading...</div>
+                ) : (
+                  <div />
+                );
               }
             }}
             overscan={200}

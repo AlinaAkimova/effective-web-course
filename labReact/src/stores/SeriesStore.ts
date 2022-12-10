@@ -17,18 +17,24 @@ class SeriesStore {
   series: ICard[] | [] = [];
 
   @observable
+  oneSeries: ICard | undefined = undefined;
+
+  @observable
   loading: boolean = false;
 
   @observable
-  id: number = 0;
+  offset: number = 0;
 
   @observable
-  offset: number = 0;
+  id: number = Number(localStorage.getItem('seriesId')) ?? 0;
 
   isLoad: boolean = false;
 
   @observable
   query: string = '';
+
+  @observable
+  total: number = 0;
 
   clearSearch: boolean = false;
 
@@ -44,6 +50,7 @@ class SeriesStore {
   @action
   setId = (id: number): void => {
     this.id = id;
+    localStorage.setItem('seriesId', String(this.id));
   };
 
   @action
@@ -76,16 +83,13 @@ class SeriesStore {
         const data = await getSeries(this.query, this.offset);
 
         runInAction(() => {
-          this.series = [...this.series, ...data];
+          this.series = [...this.series, ...data.series];
           this.isLoad = true;
+          this.total = data.total;
         });
       }
     } catch (error) {
       console.error(error);
-    } finally {
-      runInAction(() => {
-        this.loading = false;
-      });
     }
   };
 
@@ -94,19 +98,11 @@ class SeriesStore {
     try {
       const data = await getOneSeries(this.id);
       runInAction(() => {
-        this.series[this.findElement(this.id)] = data;
+        this.oneSeries = data;
       });
     } catch (error) {
       console.error(error);
-    } finally {
-      runInAction(() => {
-        this.loading = false;
-      });
     }
-  };
-
-  findElement = (id: number) => {
-    return this.series.findIndex((element) => element.cardId === id);
   };
 }
 

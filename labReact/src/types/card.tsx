@@ -16,6 +16,6 @@ export enum PageType {
 }
 
 export type CardList = {
-  resourceURI: string;
+  id: number;
   name: string;
 };

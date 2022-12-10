@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useCallback } from 'react';
 import { observer } from 'mobx-react-lite';
 
 // Stores
@@ -11,23 +11,22 @@ import DetailedCard from 'components/DetailedCard';
 import PageLayout from 'layouts/PageLayout';
 
 const SeriesDetailed: FC = observer(() => {
-  const { seriesList, id, loadSeries } = seriesStore;
+  const { loadOneSeries, oneSeries, id } = seriesStore;
+
+  const loadNext = useCallback(() => {
+    return setTimeout(() => {
+      loadOneSeries();
+    }, 0);
+  }, [id]);
 
   useEffect(() => {
-    loadSeries();
-  }, []);
-
-  const findElement = () => {
-    return seriesList.findIndex((element) => element.cardId === id);
-  };
+    const timeout = loadNext();
+    return () => clearTimeout(timeout);
+  }, [id]);
 
   return (
     <PageLayout>
-      {seriesList.length ? (
-        <DetailedCard item={seriesList[findElement()]} />
-      ) : (
-        <h2>Loading...</h2>
-      )}
+      <DetailedCard item={oneSeries} />
     </PageLayout>
   );
 });

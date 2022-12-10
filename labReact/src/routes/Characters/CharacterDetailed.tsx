@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useCallback } from 'react';
 import { observer } from 'mobx-react-lite';
 
 // Stores
@@ -11,23 +11,22 @@ import DetailedCard from 'components/DetailedCard';
 import PageLayout from 'layouts/PageLayout';
 
 const CharacterDetailed: FC = observer(() => {
-  const { charactersList, id } = characterStore;
+  const { character, id, loadCharacter } = characterStore;
+
+  const loadNext = useCallback(() => {
+    return setTimeout(() => {
+      loadCharacter();
+    }, 0);
+  }, [id]);
 
   useEffect(() => {
-    characterStore.loadCharacter();
-  }, []);
-
-  const findElement = () => {
-    return charactersList.findIndex((element) => element.cardId === id);
-  };
+    const timeout = loadNext();
+    return () => clearTimeout(timeout);
+  }, [id]);
 
   return (
     <PageLayout>
-      {charactersList.length ? (
-        <DetailedCard item={charactersList[findElement()]} />
-      ) : (
-        <h2>Loading...</h2>
-      )}
+      <DetailedCard item={character} />
     </PageLayout>
   );
 });

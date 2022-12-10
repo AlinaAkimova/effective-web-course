@@ -3,16 +3,14 @@
 .cardPage {
   display: flex;
   flex-direction: column;
-  height: 100%;
 
   .cardContainer {
     display: flex;
     margin: 50px;
-    flex: 1 0 auto;
+    height: 100%;
 
     .cardImage {
       height: 400px;
-      width: 100%;
       margin-right: 40px;
     }
 
@@ -28,7 +26,6 @@
       display: flex;
       align-items: flex-start;
       justify-content: space-around;
-      min-width: 40%;
     }
 
     .textColumn {

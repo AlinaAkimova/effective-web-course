@@ -31,7 +31,10 @@ interface ICharactersResponse {
   };
 }
 
-export const getCharacters = async (query: string, offset: number) => {
+export const getCharacters = async (
+  query: string,
+  offset: number
+): Promise<{ characters: ICard[]; total: number }> => {
   const characters = await axios.get<ICharactersResponse>(
     '/v1/public/characters',
     query
@@ -47,19 +50,21 @@ export const getCharacters = async (query: string, offset: number) => {
           }
         }
   );
-  return <ICard[]>characters.data.data.results.map((character) => {
-    return <ICard>{
-      cardId: character.id,
-      cardImage: character.thumbnail.path
-        .concat('/portrait_incredible.')
-        .concat(character.thumbnail.extension),
-      cardName: character.name,
-      cardDesc: character.description,
-      cardType: PageType.character,
-      series: [],
-      comics: []
-    };
-  });
+  return { characters: <ICard[]>characters.data.data.results.map(
+      (character) => {
+        return <ICard>{
+          cardId: character.id,
+          cardImage: character.thumbnail.path
+            .concat('/portrait_incredible.')
+            .concat(character.thumbnail.extension),
+          cardName: character.name,
+          cardDesc: character.description,
+          cardType: PageType.character,
+          series: [],
+          comics: []
+        };
+      }
+    ), total: characters.data.data.total };
 };
 
 export const getCharacter = async (characterId: number) => {
@@ -74,7 +79,17 @@ export const getCharacter = async (characterId: number) => {
     cardName: characters.data.data.results[0].name,
     cardDesc: characters.data.data.results[0].description,
     cardType: PageType.character,
-    series: characters.data.data.results[0].series.items,
-    comics: characters.data.data.results[0].comics.items
+    series: characters.data.data.results[0].series.items.map((item) => {
+      return {
+        id: Number(item.resourceURI.split('/').at(-1)),
+        name: item.name
+      };
+    }),
+    comics: characters.data.data.results[0].comics.items.map((item) => {
+      return {
+        id: Number(item.resourceURI.split('/').at(-1)),
+        name: item.name
+      };
+    })
   };
 };

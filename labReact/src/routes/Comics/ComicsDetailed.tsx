@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useCallback } from 'react';
 import { observer } from 'mobx-react-lite';
 
 // Stores
@@ -11,23 +11,22 @@ import PageLayout from 'layouts/PageLayout';
 import DetailedCard from 'components/DetailedCard';
 
 const ComicsDetailed: FC = observer(() => {
-  const { comicsList, id } = comicsStore;
+  const { loadOneComics, oneComics, id } = comicsStore;
+
+  const loadNext = useCallback(() => {
+    return setTimeout(() => {
+      loadOneComics();
+    }, 0);
+  }, [id]);
 
   useEffect(() => {
-    comicsStore.loadOneComics();
-  }, []);
-
-  const findElement = () => {
-    return comicsList.findIndex((element) => element.cardId === id);
-  };
+    const timeout = loadNext();
+    return () => clearTimeout(timeout);
+  }, [id]);
 
   return (
     <PageLayout>
-      {comicsList.length ? (
-        <DetailedCard item={comicsList[findElement()]} />
-      ) : (
-        <h2>Loading...</h2>
-      )}
+      <DetailedCard item={oneComics} />
     </PageLayout>
   );
 });

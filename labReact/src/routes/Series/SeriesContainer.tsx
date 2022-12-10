@@ -32,7 +32,8 @@ const SeriesContainer: FC = observer(() => {
     offset,
     incrementOffset,
     query,
-    setQuery
+    setQuery,
+    total
   } = seriesStore;
 
   const loadNext = useCallback(() => {
@@ -52,7 +53,7 @@ const SeriesContainer: FC = observer(() => {
         <div className={classes.mainSize}>
           <SearchBase
             pageName="series"
-            count={20}
+            count={total}
             query={query}
             setQuery={setQuery}
           />
@@ -65,7 +66,11 @@ const SeriesContainer: FC = observer(() => {
               >,
               ScrollSeekPlaceholder: () => <Grid item xs={3} />,
               Footer: () => {
-                return <div className={classes.virtuosoFooter}>Loading...</div>;
+                return offset + 20 < total ? (
+                  <div className={classes.virtuosoFooter}>Loading...</div>
+                ) : (
+                  <div />
+                );
               }
             }}
             overscan={200}

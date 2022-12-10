@@ -17,10 +17,10 @@ class ComicsStore {
   comics: ICard[] | [] = [];
 
   @observable
-  loading: boolean = false;
+  oneComics: ICard | undefined = undefined;
 
   @observable
-  id: number = 0;
+  id: number = Number(localStorage.getItem('comicsId')) ?? 0;
 
   @observable
   offset: number = 0;
@@ -29,6 +29,9 @@ class ComicsStore {
 
   @observable
   query: string = '';
+
+  @observable
+  total: number = 0;
 
   clearSearch: boolean = false;
 
@@ -44,6 +47,7 @@ class ComicsStore {
   @action
   setId = (id: number): void => {
     this.id = id;
+    localStorage.setItem('comicsId', String(this.id));
   };
 
   @action
@@ -76,16 +80,13 @@ class ComicsStore {
         const data = await getComics(this.query, this.offset);
 
         runInAction(() => {
-          this.comics = [...this.comics, ...data];
+          this.comics = [...this.comics, ...data.comics];
           this.isLoad = true;
+          this.total = data.total;
         });
       }
     } catch (error) {
       console.error(error);
-    } finally {
-      runInAction(() => {
-        this.loading = false;
-      });
     }
   };
 
@@ -94,19 +95,12 @@ class ComicsStore {
     try {
       const data = await getOneComics(this.id);
       runInAction(() => {
-        this.comics[this.findElement(this.id)] = data;
+        this.oneComics = data;
       });
+      console.log(data);
     } catch (error) {
       console.error(error);
-    } finally {
-      runInAction(() => {
-        this.loading = false;
-      });
     }
-  };
-
-  findElement = (id: number) => {
-    return this.comics.findIndex((element) => element.cardId === id);
   };
 }
 

@@ -12,7 +12,6 @@ interface IDetailedCard {
 }
 
 const DetailedCard: FC<IDetailedCard> = ({ item }) => {
-  // const contact = useLoaderData() as ICard;
   return (
     <div className={classes.cardPage}>
       <div className={classes.cardContainer}>
@@ -31,13 +30,13 @@ const DetailedCard: FC<IDetailedCard> = ({ item }) => {
             <ul>
               {item?.cardType === 'CHARACTER'
                 ? item?.comics?.map((el) => (
-                    <li key={el.name}>
-                      <Link to={`${el.resourceURI}`}>{el.name}</Link>
+                    <li key={el.id}>
+                      <Link to={`/comics/${el.id}`}>{el.name}</Link>
                     </li>
                   ))
                 : item?.characters?.map((el) => (
-                    <li key={el.name}>
-                      <Link to={`${el.resourceURI}`}>{el.name}</Link>
+                    <li key={el.id}>
+                      <Link to={`/characters/${el.id}`}>{el.name}</Link>
                     </li>
                   ))}
             </ul>
@@ -49,21 +48,13 @@ const DetailedCard: FC<IDetailedCard> = ({ item }) => {
               <ul>
                 {item?.cardType === 'SERIES'
                   ? item?.comics?.map((el) => (
-                      //     <li key={el.cardId}>
-                      //       <Link to={`/comics/${el.cardId}`}>{el.cardName}</Link>
-                      //     </li>
-                      //   ))
-                      // : item.series?.map((el) => (
-                      //     <li key={el.cardId}>
-                      //       <Link to={`/series/${el.cardId}`}>{el.cardName}</Link>
-                      //     </li>
-                      <li key={1}>
-                        <Link to="/comics">{el.name}</Link>
+                      <li key={el.id}>
+                        <Link to={`/comics/${el.id}`}>{el.name}</Link>
                       </li>
                     ))
                   : item?.series?.map((el) => (
-                      <li key={1}>
-                        <Link to="/comics">{el.name}</Link>
+                      <li key={el.id}>
+                        <Link to={`/series/${el.id}`}>{el.name}</Link>
                       </li>
                     ))}
               </ul>

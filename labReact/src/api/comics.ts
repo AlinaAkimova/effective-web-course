@@ -17,21 +17,21 @@ interface IComicsResponse {
           extension: string;
         };
         characters: {
-          available: number;
-          collectionURI: string;
           items: [{ resourceURI: string; name: string }];
         };
         series: {
-          available: number;
-          collectionURI: string;
-          items: [{ resourceURI: string; name: string }];
+          resourceURI: string;
+          name: string;
         };
       }
     ];
   };
 }
 
-export const getComics = async (query: string, offset: number) => {
+export const getComics = async (
+  query: string,
+  offset: number
+): Promise<{ comics: ICard[]; total: number }> => {
   const comics = await axios.get<IComicsResponse>(
     '/v1/public/comics',
     query
@@ -47,19 +47,19 @@ export const getComics = async (query: string, offset: number) => {
           }
         }
   );
-  return <ICard[]>comics.data.data.results.map((comicsOne) => {
-    return <ICard>{
-      cardId: comicsOne.id,
-      cardImage: comicsOne.thumbnail.path
-        .concat('/portrait_incredible.')
-        .concat(comicsOne.thumbnail.extension),
-      cardName: comicsOne.title,
-      cardDesc: comicsOne.description,
-      cardType: PageType.comics,
-      characters: [],
-      series: []
-    };
-  });
+  return { comics: <ICard[]>comics.data.data.results.map((comicsOne) => {
+      return <ICard>{
+        cardId: comicsOne.id,
+        cardImage: comicsOne.thumbnail.path
+          .concat('/portrait_incredible.')
+          .concat(comicsOne.thumbnail.extension),
+        cardName: comicsOne.title,
+        cardDesc: comicsOne.description,
+        cardType: PageType.comics,
+        characters: [],
+        series: []
+      };
+    }), total: comics.data.data.total };
 };
 
 export const getOneComics = async (comicsId: number) => {
@@ -74,7 +74,20 @@ export const getOneComics = async (comicsId: number) => {
     cardName: comics.data.data.results[0].title,
     cardDesc: comics.data.data.results[0].description,
     cardType: PageType.character,
-    series: comics.data.data.results[0].series.items,
-    characters: comics.data.data.results[0].characters.items
+    series: [
+      {
+        id: Number(
+          comics.data.data.results[0].series.resourceURI.split('/').at(-1)
+        ),
+        name: comics.data.data.results[0].series.name
+      }
+    ],
+
+    characters: comics.data.data.results[0].characters.items.map((item) => {
+      return {
+        id: Number(item.resourceURI.split('/').at(-1)),
+        name: item.name
+      };
+    })
   };
 };

@@ -17,10 +17,10 @@ class CharacterStore {
   characters: ICard[] | [] = [];
 
   @observable
-  loading: boolean = false;
+  character: ICard | undefined = undefined;
 
   @observable
-  id: number = 0;
+  id: number = Number(localStorage.getItem('characterId')) ?? 0;
 
   @observable
   offset: number = 0;
@@ -29,6 +29,9 @@ class CharacterStore {
 
   @observable
   query: string = '';
+
+  @observable
+  total: number = 0;
 
   clearSearch: boolean = false;
 
@@ -44,6 +47,7 @@ class CharacterStore {
   @action
   setId = (id: number): void => {
     this.id = id;
+    localStorage.setItem('characterId', String(this.id));
   };
 
   @action
@@ -75,16 +79,13 @@ class CharacterStore {
         }
         const data = await getCharacters(this.query, this.offset);
         runInAction(() => {
-          this.characters = [...this.characters, ...data];
+          this.characters = [...this.characters, ...data.characters];
           this.isLoad = true;
+          this.total = data.total;
         });
       }
     } catch (error) {
       console.error(error);
-    } finally {
-      runInAction(() => {
-        this.loading = false;
-      });
     }
   };
 
@@ -93,19 +94,11 @@ class CharacterStore {
     try {
       const data = await getCharacter(this.id);
       runInAction(() => {
-        this.characters[this.findElement(this.id)] = data;
+        this.character = data;
       });
     } catch (error) {
       console.error(error);
-    } finally {
-      runInAction(() => {
-        this.loading = false;
-      });
     }
-  };
-
-  findElement = (id: number) => {
-    return this.characters.findIndex((element) => element.cardId === id);
   };
 }
 
