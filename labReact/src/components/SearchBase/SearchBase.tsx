@@ -13,10 +13,11 @@ interface ISearch {
 }
 
 const SearchBase: FC<ISearch> = ({ pageName, count, query, setQuery }) => {
-  const [search, setSearch] = useState<string>('');
+  const [search, setSearch] = useState<string>(query);
   const searchChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   }, []);
+
   return (
     <div className={classes.pageNameAndSearch}>
       <div className={classes.pageName}>
@@ -30,10 +31,16 @@ const SearchBase: FC<ISearch> = ({ pageName, count, query, setQuery }) => {
           placeholder={`Search for ${pageName} by name`}
           color="info"
           className={classes.searchInput}
-          value={search}
+          defaultValue={query}
           onChange={searchChange}
         />
-        <Button variant="contained" className={classes.searchButton}>
+        <Button
+          variant="contained"
+          className={classes.searchButton}
+          onClick={() => {
+            setQuery(search);
+          }}
+        >
           Search
         </Button>
       </div>

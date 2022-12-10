@@ -1,34 +1,35 @@
 import React, { FC, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 
-// Components
-import Footer from 'components/Footer';
-import Header from 'components/Header';
-import DetailedCard from 'components/DetailedCard';
-
 // Stores
 import seriesStore from 'stores/SeriesStore';
 
-// Styles
-import classes from 'routes/Routes.module.scss';
+// Components
+import DetailedCard from 'components/DetailedCard';
 
-const SeriesContainer: FC = observer(() => {
-  const { seriesList } = seriesStore;
+// Layouts
+import PageLayout from 'layouts/PageLayout';
+
+const SeriesDetailed: FC = observer(() => {
+  const { seriesList, id, loadSeries } = seriesStore;
 
   useEffect(() => {
-    seriesStore.loadSeries();
+    loadSeries();
   }, []);
 
-  return seriesList.length ? (
-    <div className={classes.maxHeight}>
-      <Header />
-      {/* <DetailedCard item={seriesList} /> */}
-      <Footer />
-    </div>
-  ) : (
-    <div>
-      <h2>Loading...</h2>
-    </div>
+  const findElement = () => {
+    return seriesList.findIndex((element) => element.cardId === id);
+  };
+
+  return (
+    <PageLayout>
+      {seriesList.length ? (
+        <DetailedCard item={seriesList[findElement()]} />
+      ) : (
+        <h2>Loading...</h2>
+      )}
+    </PageLayout>
   );
 });
-export default SeriesContainer;
+
+export default SeriesDetailed;

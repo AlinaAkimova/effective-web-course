@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 
 // Stores
@@ -7,8 +7,8 @@ import characterStore from 'stores/CharacterStore';
 // Components
 import DetailedCard from 'components/DetailedCard';
 
-// Styles
-import classes from 'routes/Routes.module.scss';
+// Layouts
+import PageLayout from 'layouts/PageLayout';
 
 const CharacterDetailed: FC = observer(() => {
   const { charactersList, id } = characterStore;
@@ -17,20 +17,18 @@ const CharacterDetailed: FC = observer(() => {
     characterStore.loadCharacter();
   }, []);
 
-  const FindElement = () => {
-    return characterStore.charactersList.find(
-      (element) => element.cardId === id
-    );
+  const findElement = () => {
+    return charactersList.findIndex((element) => element.cardId === id);
   };
 
-  return charactersList.length ? (
-    <div className={classes.maxHeight}>
-      <DetailedCard item={FindElement()} />
-    </div>
-  ) : (
-    <div>
-      <h2>Loading...</h2>
-    </div>
+  return (
+    <PageLayout>
+      {charactersList.length ? (
+        <DetailedCard item={charactersList[findElement()]} />
+      ) : (
+        <h2>Loading...</h2>
+      )}
+    </PageLayout>
   );
 });
 export default CharacterDetailed;

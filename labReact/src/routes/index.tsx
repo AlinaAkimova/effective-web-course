@@ -1,20 +1,13 @@
 import React from 'react';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
-import { observer } from 'mobx-react-lite';
-
-// Components
-import DetailedCard from 'components/DetailedCard';
-
-// Stores
-import characterStore from 'stores/CharacterStore';
-import comicsStore from 'stores/ComicsStore';
-import seriesStore from 'stores/SeriesStore';
 
 // Routes
 import CharactersContainer from 'routes/Characters/CharactersContainer';
 import ComicsContainer from 'routes/Comics/ComicsContainer';
 import SeriesContainer from './Series/SeriesContainer';
 import CharacterDetailed from './Characters/CharacterDetailed';
+import ComicsDetailed from './Comics/ComicsDetailed';
+import SeriesDetailed from './Series/SeriesDetailed';
 
 export const router = createBrowserRouter([
   {
@@ -28,11 +21,6 @@ export const router = createBrowserRouter([
   {
     path: '/characters/:characterId',
     element: <CharacterDetailed />
-    // loader: ({ params }) => {
-    //   return characterStore.charactersList.find(
-    //     (element) => element.cardId === Number(params.characterId)
-    //   );
-    // }
   },
   {
     path: '/comics',
@@ -40,12 +28,7 @@ export const router = createBrowserRouter([
   },
   {
     path: '/comics/:comicsId',
-    element: <DetailedCard />,
-    loader: ({ params }) => {
-      return comicsStore.comicsList.find(
-        (element) => element.cardId === Number(params.comicsId)
-      );
-    }
+    element: <ComicsDetailed />
   },
   {
     path: '/series',
@@ -53,11 +36,6 @@ export const router = createBrowserRouter([
   },
   {
     path: '/series/:seriesId',
-    element: <DetailedCard />,
-    loader: ({ params }) => {
-      return seriesStore.seriesList.find(
-        (element) => element.cardId === Number(params.seriesId)
-      );
-    }
+    element: <SeriesDetailed />
   }
 ]);

@@ -1,5 +1,14 @@
-.maxHeight {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+.mainSize {
+  min-height: 80%;
+  width: 100%;
+
+  .virtuoso {
+    min-height: 80%;
+    
+    .virtuosoFooter {
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+    }
+  }
 }

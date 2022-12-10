@@ -4,67 +4,82 @@ import { VirtuosoGrid, GridListProps } from 'react-virtuoso';
 import styled from '@emotion/styled';
 import { Grid } from '@mui/material';
 
+// Layouts
+import PageLayout from 'layouts/PageLayout';
+
 // Components
-import Footer from 'components/Footer';
-import Header from 'components/Header';
 import CardWithImage from 'components/CardWithImage';
+import SearchBase from 'components/SearchBase';
+import Loading from 'components/Loading';
 
 // Stores
 import seriesStore from 'stores/SeriesStore';
 
 // Styles
-import classes from 'routes/Routes.module.scss';
+import classes from '../Routes.module.scss';
 
 const SeriesList = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-between;
 `;
 
 const SeriesContainer: FC = observer(() => {
-  const { seriesList, setId, loadSeries, offset, incrementOffset } =
-    seriesStore;
+  const {
+    seriesList,
+    setId,
+    loadSeries,
+    offset,
+    incrementOffset,
+    query,
+    setQuery
+  } = seriesStore;
 
   const loadNext = useCallback(() => {
     return setTimeout(() => {
       loadSeries();
     }, 0);
-  }, [offset]);
+  }, [offset, query]);
 
   useEffect(() => {
     const timeout = loadNext();
     return () => clearTimeout(timeout);
-  }, [offset]);
+  }, [offset, query]);
 
-  return seriesList.length ? (
-    <div className={classes.maxHeight}>
-      <Header />
-      {/* <CardsContainer
-        pageName="series"
-        listItem={seriesList}
-        openCard={setId}
-      /> */}
-      <VirtuosoGrid
-        components={{
-          Item: Grid,
-          List: SeriesList as ComponentType<
-            GridListProps & { context?: unknown }
-          >,
-          ScrollSeekPlaceholder: () => <Grid item xs={3} />
-        }}
-        overscan={200}
-        data={seriesList}
-        endReached={incrementOffset}
-        itemContent={(index, item) => (
-          <CardWithImage pageName="series" item={item} openCard={setId} />
-        )}
-      />
-      <Footer />
-    </div>
-  ) : (
-    <div>
-      <h2>Loading...</h2>
-    </div>
+  return (
+    <PageLayout>
+      {seriesList.length ? (
+        <div className={classes.mainSize}>
+          <SearchBase
+            pageName="series"
+            count={20}
+            query={query}
+            setQuery={setQuery}
+          />
+          <VirtuosoGrid
+            className={classes.virtuoso}
+            components={{
+              Item: Grid,
+              List: SeriesList as ComponentType<
+                GridListProps & { context?: unknown }
+              >,
+              ScrollSeekPlaceholder: () => <Grid item xs={3} />,
+              Footer: () => {
+                return <div className={classes.virtuosoFooter}>Loading...</div>;
+              }
+            }}
+            overscan={200}
+            data={seriesList}
+            endReached={incrementOffset}
+            itemContent={(index, item) => (
+              <CardWithImage pageName="series" item={item} openCard={setId} />
+            )}
+          />
+        </div>
+      ) : (
+        <Loading />
+      )}
+    </PageLayout>
   );
 });
 export default SeriesContainer;

@@ -16,7 +16,7 @@
       margin-right: 40px;
     }
 
-    .cardText {
+    .cardTextColumn {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
@@ -24,11 +24,19 @@
       width: 270px;
     }
 
+    .cardTextRow {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-around;
+      min-width: 40%;
+    }
+
     .textColumn {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       margin-bottom: 20px;
+      margin-right: 40px;
 
       ul {
         list-style: none;

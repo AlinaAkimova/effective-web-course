@@ -1,35 +1,34 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 
 // Stores
 import comicsStore from 'stores/ComicsStore';
 
+// Layout
+import PageLayout from 'layouts/PageLayout';
+
 // Components
-import Footer from 'components/Footer';
-import Header from 'components/Header';
 import DetailedCard from 'components/DetailedCard';
 
-// Styles
-import classes from 'routes/Routes.module.scss';
-
-const ComicsContainer: FC = observer(() => {
-  const { comicsList } = comicsStore;
+const ComicsDetailed: FC = observer(() => {
+  const { comicsList, id } = comicsStore;
 
   useEffect(() => {
-    comicsStore.loadComics();
+    comicsStore.loadOneComics();
   }, []);
-  console.log(comicsList);
 
-  return comicsList.length ? (
-    <div className={classes.maxHeight}>
-      <Header />
-      {/* <DetailedCard item={comicsList} /> */}
-      <Footer />
-    </div>
-  ) : (
-    <div>
-      <h2>Loading...</h2>
-    </div>
+  const findElement = () => {
+    return comicsList.findIndex((element) => element.cardId === id);
+  };
+
+  return (
+    <PageLayout>
+      {comicsList.length ? (
+        <DetailedCard item={comicsList[findElement()]} />
+      ) : (
+        <h2>Loading...</h2>
+      )}
+    </PageLayout>
   );
 });
-export default ComicsContainer;
+export default ComicsDetailed;

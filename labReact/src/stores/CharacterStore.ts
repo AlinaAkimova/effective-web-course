@@ -17,9 +17,6 @@ class CharacterStore {
   characters: ICard[] | [] = [];
 
   @observable
-  query: string = '';
-
-  @observable
   loading: boolean = false;
 
   @observable
@@ -28,8 +25,20 @@ class CharacterStore {
   @observable
   offset: number = 0;
 
+  isLoad: boolean = false;
+
+  @observable
+  query: string = '';
+
+  clearSearch: boolean = false;
+
   constructor() {
     makeObservable(this);
+  }
+
+  @computed
+  get charactersList() {
+    return this.characters;
   }
 
   @action
@@ -45,25 +54,31 @@ class CharacterStore {
   @action
   incrementOffset = () => {
     this.offset += 20;
+    this.isLoad = false;
   };
-
-  @computed
-  get charactersList() {
-    return this.characters;
-  }
 
   @action
   setQuery = (query: string): void => {
     this.query = query;
+    this.isLoad = false;
+    this.clearSearch = true;
   };
 
   @action
   loadCharacters = async (): Promise<void> => {
     try {
-      const data = await getCharacters(this.offset);
-      runInAction(() => {
-        this.characters = [...this.characters, ...data];
-      });
+      if (!this.isLoad) {
+        if (this.clearSearch) {
+          this.offset = 0;
+          this.characters = [];
+          this.clearSearch = false;
+        }
+        const data = await getCharacters(this.query, this.offset);
+        runInAction(() => {
+          this.characters = [...this.characters, ...data];
+          this.isLoad = true;
+        });
+      }
     } catch (error) {
       console.error(error);
     } finally {
@@ -78,7 +93,7 @@ class CharacterStore {
     try {
       const data = await getCharacter(this.id);
       runInAction(() => {
-        this.characters[this.id] = data;
+        this.characters[this.findElement(this.id)] = data;
       });
     } catch (error) {
       console.error(error);
@@ -87,6 +102,10 @@ class CharacterStore {
         this.loading = false;
       });
     }
+  };
+
+  findElement = (id: number) => {
+    return this.characters.findIndex((element) => element.cardId === id);
   };
 }
 

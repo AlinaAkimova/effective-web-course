@@ -10,14 +10,11 @@ import {
 import { ICard } from 'types/card';
 
 // API
-import { getComics } from '../api/comics';
+import { getComics, getOneComics } from '../api/comics';
 
 class ComicsStore {
   @observable
   comics: ICard[] | [] = [];
-
-  @observable
-  query: string = '';
 
   @observable
   loading: boolean = false;
@@ -28,13 +25,12 @@ class ComicsStore {
   @observable
   offset: number = 0;
 
-  @observable
-  load: boolean = false;
+  isLoad: boolean = false;
 
-  @action
-  setId = (id: number): void => {
-    this.id = id;
-  };
+  @observable
+  query: string = '';
+
+  clearSearch: boolean = false;
 
   constructor() {
     makeObservable(this);
@@ -46,6 +42,11 @@ class ComicsStore {
   }
 
   @action
+  setId = (id: number): void => {
+    this.id = id;
+  };
+
+  @action
   setOffset = (offset: number) => {
     this.offset = offset;
   };
@@ -53,20 +54,47 @@ class ComicsStore {
   @action
   incrementOffset = () => {
     this.offset += 20;
+    this.isLoad = false;
   };
 
   @action
   setQuery = (query: string): void => {
     this.query = query;
+    this.isLoad = false;
+    this.clearSearch = true;
   };
 
   @action
   loadComics = async (): Promise<void> => {
     try {
-      const data = await getComics(this.offset);
+      if (!this.isLoad) {
+        if (this.clearSearch) {
+          this.offset = 0;
+          this.comics = [];
+          this.clearSearch = false;
+        }
+        const data = await getComics(this.query, this.offset);
 
+        runInAction(() => {
+          this.comics = [...this.comics, ...data];
+          this.isLoad = true;
+        });
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
       runInAction(() => {
-        this.comics = [...this.comics, ...data];
+        this.loading = false;
+      });
+    }
+  };
+
+  @action
+  loadOneComics = async (): Promise<void> => {
+    try {
+      const data = await getOneComics(this.id);
+      runInAction(() => {
+        this.comics[this.findElement(this.id)] = data;
       });
     } catch (error) {
       console.error(error);
@@ -75,6 +103,10 @@ class ComicsStore {
         this.loading = false;
       });
     }
+  };
+
+  findElement = (id: number) => {
+    return this.comics.findIndex((element) => element.cardId === id);
   };
 }
 

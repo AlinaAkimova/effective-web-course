@@ -31,35 +31,21 @@ interface ICharactersResponse {
   };
 }
 
-interface ICharacterResponse {
-  status: string;
-  data: {
-    results: [
-      {
-        id: number;
-        name: string;
-        description: string;
-        thumbnail: {
-          path: string;
-          extension: string;
-        };
-        comics: {
-          items: [{ resourceURI: string; name: string }];
-        };
-        series: {
-          items: [{ resourceURI: string; name: string }];
-        };
-      }
-    ];
-  };
-}
-
-export const getCharacters = async (offset: number) => {
+export const getCharacters = async (query: string, offset: number) => {
   const characters = await axios.get<ICharactersResponse>(
     '/v1/public/characters',
-    {
-      params: { offset }
-    }
+    query
+      ? {
+          params: {
+            offset,
+            nameStartsWith: query
+          }
+        }
+      : {
+          params: {
+            offset
+          }
+        }
   );
   return <ICard[]>characters.data.data.results.map((character) => {
     return <ICard>{
@@ -77,7 +63,7 @@ export const getCharacters = async (offset: number) => {
 };
 
 export const getCharacter = async (characterId: number) => {
-  const characters = await axios.get<ICharacterResponse>(
+  const characters = await axios.get<ICharactersResponse>(
     `/v1/public/characters/${characterId}`
   );
   return <ICard>{

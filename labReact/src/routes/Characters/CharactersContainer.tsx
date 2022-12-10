@@ -1,65 +1,90 @@
 import React, { ComponentType, FC, useCallback, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
-import { VirtuosoGrid, GridListProps, GridItemProps } from 'react-virtuoso';
+import { VirtuosoGrid, GridListProps } from 'react-virtuoso';
 import styled from '@emotion/styled';
 import { Grid } from '@mui/material';
+
+// Layouts
+import PageLayout from 'layouts/PageLayout';
 
 // Stores
 import characterStore from 'stores/CharacterStore';
 
 // Components
-import Footer from 'components/Footer';
-import Header from 'components/Header';
 import CardWithImage from 'components/CardWithImage';
-import CardsContainer from 'components/CardsContainer';
+import SearchBase from 'components/SearchBase';
+import Loading from 'components/Loading';
 
 // Styles
-import classes from 'routes/Routes.module.scss';
+import classes from '../Routes.module.scss';
 
 const CharactersList = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-between;
 `;
 
 const CharactersContainer: FC = observer(() => {
-  const { charactersList, setId, loadCharacters, offset } = characterStore;
+  const {
+    charactersList,
+    setId,
+    loadCharacters,
+    offset,
+    query,
+    setQuery,
+    incrementOffset
+  } = characterStore;
 
   const loadNext = useCallback(() => {
     return setTimeout(() => {
       loadCharacters();
     }, 0);
-  }, [offset]);
+  }, [offset, query]);
 
   useEffect(() => {
     const timeout = loadNext();
     return () => clearTimeout(timeout);
-  }, [offset]);
+  }, [offset, query]);
 
-  return charactersList.length ? (
-    <div className={classes.maxHeight}>
-      <Header />
-      <VirtuosoGrid
-        components={{
-          Item: Grid,
-          List: CharactersList as ComponentType<
-            GridListProps & { context?: unknown }
-          >,
-          ScrollSeekPlaceholder: () => <Grid item xs={3} />
-        }}
-        overscan={200}
-        data={charactersList}
-        endReached={characterStore.incrementOffset}
-        itemContent={(index, item) => (
-          <CardWithImage pageName="characters" item={item} openCard={setId} />
-        )}
-      />
-      <Footer />
-    </div>
-  ) : (
-    <div>
-      <h2>Loading...</h2>
-    </div>
+  return (
+    <PageLayout>
+      {charactersList.length ? (
+        <div className={classes.mainSize}>
+          <SearchBase
+            pageName="characters"
+            count={20}
+            query={query}
+            setQuery={setQuery}
+          />
+
+          <VirtuosoGrid
+            className={classes.virtuoso}
+            components={{
+              Item: Grid,
+              List: CharactersList as ComponentType<
+                GridListProps & { context?: unknown }
+              >,
+              ScrollSeekPlaceholder: () => <Grid item xs={3} />,
+              Footer: () => {
+                return <div className={classes.virtuosoFooter}>Loading...</div>;
+              }
+            }}
+            overscan={200}
+            data={charactersList}
+            endReached={incrementOffset}
+            itemContent={(index, item) => (
+              <CardWithImage
+                pageName="characters"
+                item={item}
+                openCard={setId}
+              />
+            )}
+          />
+        </div>
+      ) : (
+        <Loading />
+      )}
+    </PageLayout>
   );
 });
 export default CharactersContainer;
