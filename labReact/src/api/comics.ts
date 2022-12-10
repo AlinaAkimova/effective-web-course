@@ -32,13 +32,13 @@ interface IComicsResponse {
 }
 
 export const getComics = async (query: string, offset: number) => {
-  const characters = await axios.get<IComicsResponse>(
+  const comics = await axios.get<IComicsResponse>(
     '/v1/public/comics',
     query
       ? {
           params: {
             offset,
-            nameStartsWith: query
+            titleStartsWith: query
           }
         }
       : {
@@ -47,14 +47,14 @@ export const getComics = async (query: string, offset: number) => {
           }
         }
   );
-  return <ICard[]>characters.data.data.results.map((character) => {
+  return <ICard[]>comics.data.data.results.map((comicsOne) => {
     return <ICard>{
-      cardId: character.id,
-      cardImage: character.thumbnail.path
+      cardId: comicsOne.id,
+      cardImage: comicsOne.thumbnail.path
         .concat('/portrait_incredible.')
-        .concat(character.thumbnail.extension),
-      cardName: character.title,
-      cardDesc: character.description,
+        .concat(comicsOne.thumbnail.extension),
+      cardName: comicsOne.title,
+      cardDesc: comicsOne.description,
       cardType: PageType.comics,
       characters: [],
       series: []
