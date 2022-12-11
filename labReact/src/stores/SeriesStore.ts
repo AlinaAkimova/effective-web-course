@@ -36,6 +36,9 @@ class SeriesStore {
   @observable
   total: number = 0;
 
+  @observable
+  error: boolean = false;
+
   clearSearch: boolean = false;
 
   constructor() {
@@ -83,13 +86,19 @@ class SeriesStore {
         const data = await getSeries(this.query, this.offset);
 
         runInAction(() => {
+          this.loading = true;
           this.series = [...this.series, ...data.series];
           this.isLoad = true;
           this.total = data.total;
+          this.error = data.error;
         });
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      runInAction(() => {
+        this.loading = false;
+      });
     }
   };
 

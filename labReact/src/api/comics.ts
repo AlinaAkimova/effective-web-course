@@ -28,38 +28,44 @@ interface IComicsResponse {
   };
 }
 
-export const getComics = async (
+export const getComics = (
   query: string,
   offset: number
-): Promise<{ comics: ICard[]; total: number }> => {
-  const comics = await axios.get<IComicsResponse>(
-    '/v1/public/comics',
-    query
-      ? {
-          params: {
-            offset,
-            titleStartsWith: query
+): Promise<{ comics: ICard[]; total: number; error: boolean }> => {
+  return axios
+    .get<IComicsResponse>(
+      '/v1/public/comics',
+      query
+        ? {
+            params: {
+              offset,
+              titleStartsWith: query
+            }
           }
-        }
-      : {
-          params: {
-            offset
+        : {
+            params: {
+              offset
+            }
           }
-        }
-  );
-  return { comics: <ICard[]>comics.data.data.results.map((comicsOne) => {
-      return <ICard>{
-        cardId: comicsOne.id,
-        cardImage: comicsOne.thumbnail.path
-          .concat('/portrait_incredible.')
-          .concat(comicsOne.thumbnail.extension),
-        cardName: comicsOne.title,
-        cardDesc: comicsOne.description,
-        cardType: PageType.comics,
-        characters: [],
-        series: []
-      };
-    }), total: comics.data.data.total };
+    )
+    .then((comics) => {
+      return { comics: <ICard[]>comics.data.data.results.map((comicsOne) => {
+          return <ICard>{
+            cardId: comicsOne.id,
+            cardImage: comicsOne.thumbnail.path
+              .concat('/portrait_incredible.')
+              .concat(comicsOne.thumbnail.extension),
+            cardName: comicsOne.title,
+            cardDesc: comicsOne.description,
+            cardType: PageType.comics,
+            characters: [],
+            series: []
+          };
+        }), total: comics.data.data.total, error: false };
+    })
+    .catch(() => {
+      return { comics: [], total: 0, error: true };
+    });
 };
 
 export const getOneComics = async (comicsId: number) => {

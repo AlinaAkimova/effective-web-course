@@ -27,39 +27,44 @@ interface ISeriesResponse {
   };
 }
 
-export const getSeries = async (
+export const getSeries = (
   query: string,
   offset: number
-): Promise<{ series: ICard[]; total: number }> => {
-  const series = await axios.get<ISeriesResponse>(
-    '/v1/public/series',
-    query
-      ? {
-          params: {
-            offset,
-            titleStartsWith: query
+): Promise<{ series: ICard[]; total: number; error: boolean }> => {
+  return axios
+    .get<ISeriesResponse>(
+      '/v1/public/series',
+      query
+        ? {
+            params: {
+              offset,
+              titleStartsWith: query
+            }
           }
-        }
-      : {
-          params: {
-            offset
+        : {
+            params: {
+              offset
+            }
           }
-        }
-  );
-
-  return { series: <ICard[]>series.data.data.results.map((seriesOne) => {
-      return <ICard>{
-        cardId: seriesOne.id,
-        cardImage: seriesOne.thumbnail.path
-          .concat('/portrait_incredible.')
-          .concat(seriesOne.thumbnail.extension),
-        cardName: seriesOne.title,
-        cardDesc: seriesOne.description,
-        cardType: PageType.series,
-        characters: [],
-        comics: []
-      };
-    }), total: series.data.data.total };
+    )
+    .then((series) => {
+      return { series: <ICard[]>series.data.data.results.map((seriesOne) => {
+          return <ICard>{
+            cardId: seriesOne.id,
+            cardImage: seriesOne.thumbnail.path
+              .concat('/portrait_incredible.')
+              .concat(seriesOne.thumbnail.extension),
+            cardName: seriesOne.title,
+            cardDesc: seriesOne.description,
+            cardType: PageType.series,
+            characters: [],
+            comics: []
+          };
+        }), total: series.data.data.total, error: false };
+    })
+    .catch(() => {
+      return { series: [], total: 0, error: true };
+    });
 };
 
 export const getOneSeries = async (seriesId: number) => {
@@ -67,7 +72,6 @@ export const getOneSeries = async (seriesId: number) => {
     `/v1/public/series/${seriesId}`
   );
 
-  const getComics = series.data.data.results[0].comics.items;
   return <ICard>{
     cardId: series.data.data.results[0].id,
     cardImage: series.data.data.results[0].thumbnail.path

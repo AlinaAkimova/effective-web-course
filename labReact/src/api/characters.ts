@@ -31,40 +31,51 @@ interface ICharactersResponse {
   };
 }
 
-export const getCharacters = async (
+export const getCharacters = (
   query: string,
   offset: number
-): Promise<{ characters: ICard[]; total: number }> => {
-  const characters = await axios.get<ICharactersResponse>(
-    '/v1/public/characters',
-    query
-      ? {
-          params: {
-            offset,
-            nameStartsWith: query
+): Promise<{
+  characters: ICard[];
+  total: number;
+  error: boolean;
+  loading: boolean;
+}> => {
+  return axios
+    .get<ICharactersResponse>(
+      '/v1/public/characters',
+      query
+        ? {
+            params: {
+              offset,
+              nameStartsWith: query
+            }
           }
-        }
-      : {
-          params: {
-            offset
+        : {
+            params: {
+              offset
+            }
           }
-        }
-  );
-  return { characters: <ICard[]>characters.data.data.results.map(
-      (character) => {
-        return <ICard>{
-          cardId: character.id,
-          cardImage: character.thumbnail.path
-            .concat('/portrait_incredible.')
-            .concat(character.thumbnail.extension),
-          cardName: character.name,
-          cardDesc: character.description,
-          cardType: PageType.character,
-          series: [],
-          comics: []
-        };
-      }
-    ), total: characters.data.data.total };
+    )
+    .then((characters) => {
+      return { characters: <ICard[]>characters.data.data.results.map(
+          (character) => {
+            return <ICard>{
+              cardId: character.id,
+              cardImage: character.thumbnail.path
+                .concat('/portrait_incredible.')
+                .concat(character.thumbnail.extension),
+              cardName: character.name,
+              cardDesc: character.description,
+              cardType: PageType.character,
+              series: [],
+              comics: []
+            };
+          }
+        ), total: characters.data.data.total, error: false, loading: false };
+    })
+    .catch(() => {
+      return { characters: [], total: 0, error: true, loading: false };
+    });
 };
 
 export const getCharacter = async (characterId: number) => {

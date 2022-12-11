@@ -1,8 +1,13 @@
 import React, { FC } from 'react';
-import { Link, useLoaderData } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 // Types
 import { ICard } from 'types/card';
+
+// Stores
+import characterStore from 'stores/CharacterStore';
+import comicsStore from 'stores/ComicsStore';
+import seriesStore from 'stores/SeriesStore';
 
 // Styles
 import classes from './DetailedCard.module.scss';
@@ -12,6 +17,10 @@ interface IDetailedCard {
 }
 
 const DetailedCard: FC<IDetailedCard> = ({ item }) => {
+  const { setId: setIdCh } = characterStore;
+  const { setId: setIdCom } = comicsStore;
+  const { setId: setIdS } = seriesStore;
+
   return (
     <div className={classes.cardPage}>
       <div className={classes.cardContainer}>
@@ -31,12 +40,22 @@ const DetailedCard: FC<IDetailedCard> = ({ item }) => {
               {item?.cardType === 'CHARACTER'
                 ? item?.comics?.map((el) => (
                     <li key={el.id}>
-                      <Link to={`/comics/${el.id}`}>{el.name}</Link>
+                      <Link
+                        to={`/comics/${el.id}`}
+                        onClick={() => setIdCom(el.id)}
+                      >
+                        {el.name}
+                      </Link>
                     </li>
                   ))
                 : item?.characters?.map((el) => (
                     <li key={el.id}>
-                      <Link to={`/characters/${el.id}`}>{el.name}</Link>
+                      <Link
+                        to={`/characters/${el.id}`}
+                        onClick={() => setIdCh(el.id)}
+                      >
+                        {el.name}
+                      </Link>
                     </li>
                   ))}
             </ul>
@@ -49,12 +68,22 @@ const DetailedCard: FC<IDetailedCard> = ({ item }) => {
                 {item?.cardType === 'SERIES'
                   ? item?.comics?.map((el) => (
                       <li key={el.id}>
-                        <Link to={`/comics/${el.id}`}>{el.name}</Link>
+                        <Link
+                          to={`/comics/${el.id}`}
+                          onClick={() => setIdCom(el.id)}
+                        >
+                          {el.name}
+                        </Link>
                       </li>
                     ))
                   : item?.series?.map((el) => (
                       <li key={el.id}>
-                        <Link to={`/series/${el.id}`}>{el.name}</Link>
+                        <Link
+                          to={`/series/${el.id}`}
+                          onClick={() => setIdS(el.id)}
+                        >
+                          {el.name}
+                        </Link>
                       </li>
                     ))}
               </ul>

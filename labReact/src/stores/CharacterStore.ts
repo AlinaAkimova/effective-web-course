@@ -33,6 +33,12 @@ class CharacterStore {
   @observable
   total: number = 0;
 
+  @observable
+  error: boolean = false;
+
+  @observable
+  loading: boolean = false;
+
   clearSearch: boolean = false;
 
   constructor() {
@@ -79,9 +85,12 @@ class CharacterStore {
         }
         const data = await getCharacters(this.query, this.offset);
         runInAction(() => {
+          this.loading = true;
           this.characters = [...this.characters, ...data.characters];
           this.isLoad = true;
           this.total = data.total;
+          this.error = data.error;
+          this.loading = data.loading;
         });
       }
     } catch (error) {

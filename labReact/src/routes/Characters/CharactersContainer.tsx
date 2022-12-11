@@ -33,7 +33,9 @@ const CharactersContainer: FC = observer(() => {
     query,
     setQuery,
     incrementOffset,
-    total
+    total,
+    error,
+    loading
   } = characterStore;
 
   const loadNext = useCallback(() => {
@@ -49,7 +51,7 @@ const CharactersContainer: FC = observer(() => {
 
   return (
     <PageLayout>
-      {charactersList.length ? (
+      {!loading ? (
         <div className={classes.mainSize}>
           <SearchBase
             pageName="characters"
@@ -58,33 +60,37 @@ const CharactersContainer: FC = observer(() => {
             setQuery={setQuery}
           />
 
-          <VirtuosoGrid
-            className={classes.virtuoso}
-            components={{
-              Item: Grid,
-              List: CharactersList as ComponentType<
-                GridListProps & { context?: unknown }
-              >,
-              ScrollSeekPlaceholder: () => <Grid item xs={3} />,
-              Footer: () => {
-                return offset + 20 < total ? (
-                  <div className={classes.virtuosoFooter}>Loading...</div>
-                ) : (
-                  <div />
-                );
-              }
-            }}
-            overscan={200}
-            data={charactersList}
-            endReached={incrementOffset}
-            itemContent={(index, item) => (
-              <CardWithImage
-                pageName="characters"
-                item={item}
-                openCard={setId}
-              />
-            )}
-          />
+          {error ? (
+            <h1>Something went wrong......</h1>
+          ) : (
+            <VirtuosoGrid
+              className={classes.virtuoso}
+              components={{
+                Item: Grid,
+                List: CharactersList as ComponentType<
+                  GridListProps & { context?: unknown }
+                >,
+                ScrollSeekPlaceholder: () => <Grid item xs={3} />,
+                Footer: () => {
+                  return offset + 20 < total ? (
+                    <div className={classes.virtuosoFooter}>Loading...</div>
+                  ) : (
+                    <div />
+                  );
+                }
+              }}
+              overscan={200}
+              data={charactersList}
+              endReached={incrementOffset}
+              itemContent={(index, item) => (
+                <CardWithImage
+                  pageName="characters"
+                  item={item}
+                  openCard={setId}
+                />
+              )}
+            />
+          )}
         </div>
       ) : (
         <Loading />

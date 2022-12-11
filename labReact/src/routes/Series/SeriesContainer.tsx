@@ -33,7 +33,9 @@ const SeriesContainer: FC = observer(() => {
     incrementOffset,
     query,
     setQuery,
-    total
+    total,
+    error,
+    loading
   } = seriesStore;
 
   const loadNext = useCallback(() => {
@@ -49,7 +51,7 @@ const SeriesContainer: FC = observer(() => {
 
   return (
     <PageLayout>
-      {seriesList.length ? (
+      {!loading ? (
         <div className={classes.mainSize}>
           <SearchBase
             pageName="series"
@@ -57,29 +59,33 @@ const SeriesContainer: FC = observer(() => {
             query={query}
             setQuery={setQuery}
           />
-          <VirtuosoGrid
-            className={classes.virtuoso}
-            components={{
-              Item: Grid,
-              List: SeriesList as ComponentType<
-                GridListProps & { context?: unknown }
-              >,
-              ScrollSeekPlaceholder: () => <Grid item xs={3} />,
-              Footer: () => {
-                return offset + 20 < total ? (
-                  <div className={classes.virtuosoFooter}>Loading...</div>
-                ) : (
-                  <div />
-                );
-              }
-            }}
-            overscan={200}
-            data={seriesList}
-            endReached={incrementOffset}
-            itemContent={(index, item) => (
-              <CardWithImage pageName="series" item={item} openCard={setId} />
-            )}
-          />
+          {error ? (
+            <h1>Something went wrong......</h1>
+          ) : (
+            <VirtuosoGrid
+              className={classes.virtuoso}
+              components={{
+                Item: Grid,
+                List: SeriesList as ComponentType<
+                  GridListProps & { context?: unknown }
+                >,
+                ScrollSeekPlaceholder: () => <Grid item xs={3} />,
+                Footer: () => {
+                  return offset + 20 < total ? (
+                    <div className={classes.virtuosoFooter}>Loading...</div>
+                  ) : (
+                    <div />
+                  );
+                }
+              }}
+              overscan={200}
+              data={seriesList}
+              endReached={incrementOffset}
+              itemContent={(index, item) => (
+                <CardWithImage pageName="series" item={item} openCard={setId} />
+              )}
+            />
+          )}
         </div>
       ) : (
         <Loading />

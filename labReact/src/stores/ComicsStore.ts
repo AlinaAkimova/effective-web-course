@@ -33,6 +33,12 @@ class ComicsStore {
   @observable
   total: number = 0;
 
+  @observable
+  error: boolean = false;
+
+  @observable
+  loading: boolean = false;
+
   clearSearch: boolean = false;
 
   constructor() {
@@ -80,13 +86,19 @@ class ComicsStore {
         const data = await getComics(this.query, this.offset);
 
         runInAction(() => {
+          this.loading = true;
           this.comics = [...this.comics, ...data.comics];
           this.isLoad = true;
           this.total = data.total;
+          this.error = data.error;
         });
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      runInAction(() => {
+        this.loading = false;
+      });
     }
   };
 

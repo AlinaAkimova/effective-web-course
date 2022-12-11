@@ -33,7 +33,9 @@ const ComicsContainer: FC = observer(() => {
     query,
     setQuery,
     incrementOffset,
-    total
+    total,
+    error,
+    loading
   } = comicsStore;
 
   const loadNext = useCallback(() => {
@@ -49,7 +51,7 @@ const ComicsContainer: FC = observer(() => {
 
   return (
     <PageLayout>
-      {comicsList.length ? (
+      {!loading ? (
         <div className={classes.mainSize}>
           <SearchBase
             pageName="comics"
@@ -57,29 +59,33 @@ const ComicsContainer: FC = observer(() => {
             query={query}
             setQuery={setQuery}
           />
-          <VirtuosoGrid
-            className={classes.virtuoso}
-            components={{
-              Item: Grid,
-              List: ComicsList as ComponentType<
-                GridListProps & { context?: unknown }
-              >,
-              ScrollSeekPlaceholder: () => <Grid item xs={3} />,
-              Footer: () => {
-                return offset + 20 < total ? (
-                  <div className={classes.virtuosoFooter}>Loading...</div>
-                ) : (
-                  <div />
-                );
-              }
-            }}
-            overscan={200}
-            data={comicsList}
-            endReached={incrementOffset}
-            itemContent={(index, item) => (
-              <CardWithImage pageName="comics" item={item} openCard={setId} />
-            )}
-          />
+          {error ? (
+            <h1>Something went wrong......</h1>
+          ) : (
+            <VirtuosoGrid
+              className={classes.virtuoso}
+              components={{
+                Item: Grid,
+                List: ComicsList as ComponentType<
+                  GridListProps & { context?: unknown }
+                >,
+                ScrollSeekPlaceholder: () => <Grid item xs={3} />,
+                Footer: () => {
+                  return offset + 20 < total ? (
+                    <div className={classes.virtuosoFooter}>Loading...</div>
+                  ) : (
+                    <div />
+                  );
+                }
+              }}
+              overscan={200}
+              data={comicsList}
+              endReached={incrementOffset}
+              itemContent={(index, item) => (
+                <CardWithImage pageName="comics" item={item} openCard={setId} />
+              )}
+            />
+          )}
         </div>
       ) : (
         <Loading />
