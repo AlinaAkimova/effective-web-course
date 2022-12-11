@@ -4,9 +4,9 @@ export interface ICard {
   cardName: string;
   cardDesc: string;
   cardType: PageType;
-  characters?: ICard[];
-  comics?: ICard[];
-  series?: ICard[];
+  characters?: CardList[];
+  comics?: CardList[];
+  series?: CardList[];
 }
 
 export enum PageType {
@@ -14,3 +14,8 @@ export enum PageType {
   comics = 'COMICS',
   series = 'SERIES'
 }
+
+export type CardList = {
+  id: number;
+  name: string;
+};

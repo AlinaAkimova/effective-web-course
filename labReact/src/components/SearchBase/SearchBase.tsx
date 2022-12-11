@@ -1,14 +1,23 @@
-import React, { FC } from 'react';
+import React, { FC, useState, useCallback, ChangeEvent } from 'react';
 import { TextField, Button } from '@mui/material';
+// import debounce from 'lodash.debounce';
+
 // Styles
 import classes from './SearchBase.module.scss';
 
 interface ISearch {
   pageName: string;
   count: number;
+  query: string;
+  setQuery(query: string): void;
 }
 
-const SearchBase: FC<ISearch> = ({ pageName, count }) => {
+const SearchBase: FC<ISearch> = ({ pageName, count, query, setQuery }) => {
+  const [search, setSearch] = useState<string>(query);
+  const searchChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+  }, []);
+
   return (
     <div className={classes.pageNameAndSearch}>
       <div className={classes.pageName}>
@@ -22,8 +31,16 @@ const SearchBase: FC<ISearch> = ({ pageName, count }) => {
           placeholder={`Search for ${pageName} by name`}
           color="info"
           className={classes.searchInput}
+          defaultValue={query}
+          onChange={searchChange}
         />
-        <Button variant="contained" className={classes.searchButton}>
+        <Button
+          variant="contained"
+          className={classes.searchButton}
+          onClick={() => {
+            setQuery(search);
+          }}
+        >
           Search
         </Button>
       </div>
