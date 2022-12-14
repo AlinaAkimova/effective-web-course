@@ -3,27 +3,40 @@
 .cardContainer {
   display: flex;
   flex-direction: column;
-  border: 1px solid $color-black;
+  // border: 1px solid $color-black;
   width: 250px;
   height: 450px;
-  margin: 70px 0 0 0;
-  text-decoration: none;
+  margin: 70px 0;
   overflow: hidden;
+  transition: transform 0.3s ease-in-out;
 
-  img {
-    width: 100%;
-    height: 70%;
+  &:hover {
+    transform: scale(1.1);
   }
 
-  .cardText {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin: 20px;
-    color: $color-black;
-  }
+  .noDecoration {
+    text-decoration: none;
 
-  .redText {
-    color: $color-red;
+    img {
+      width: 100%;
+      height: 310px;
+    }
+
+    .cardText {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin: 20px;
+      color: $color-black;
+      font-weight: normal;
+      font-weight: lighter;
+      font-size: 14px;
+    }
+
+    .redText {
+      color: $color-red;
+      font-weight: bold;
+      font-size: 16px;
+    }
   }
 }

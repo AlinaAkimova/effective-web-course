@@ -79,7 +79,7 @@ export const getOneComics = async (comicsId: number) => {
       .concat(comics.data.data.results[0].thumbnail.extension),
     cardName: comics.data.data.results[0].title,
     cardDesc: comics.data.data.results[0].description,
-    cardType: PageType.character,
+    cardType: PageType.comics,
     series: [
       {
         id: Number(

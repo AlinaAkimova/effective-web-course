@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
-import characterStore from 'stores/CharacterStore';
+import { Paper } from '@mui/material';
 
 // Types
 import { ICard } from 'types/card';
@@ -14,20 +14,31 @@ interface IComponentCard {
   openCard(id: number): void;
 }
 const CardWithImage: FC<IComponentCard> = ({ pageName, item, openCard }) => {
+  const descriptionSubpage = () => {
+    if (item.cardDesc) {
+      return item.cardDesc.length < 70
+        ? item.cardDesc
+        : `${item.cardDesc.substring(0, 70)}...`;
+    }
+    return '';
+  };
+
   return (
-    <Link
-      to={`/${pageName}/${item.cardId}`}
-      onClick={() => {
-        openCard(item.cardId);
-      }}
-      className={classes.cardContainer}
-    >
-      <img src={item.cardImage} alt="img" />
-      <div className={classes.cardText}>
-        <div className={classes.redText}>{item.cardName}</div>
-        <div>{item.cardDesc}</div>
-      </div>
-    </Link>
+    <Paper elevation={6} className={classes.cardContainer}>
+      <Link
+        to={`/${pageName}/${item.cardId}`}
+        onClick={() => {
+          openCard(item.cardId);
+        }}
+        className={classes.noDecoration}
+      >
+        <img src={item.cardImage} alt="img" />
+        <div className={classes.cardText}>
+          <div className={classes.redText}>{item.cardName}</div>
+          <div>{descriptionSubpage()}</div>
+        </div>
+      </Link>
+    </Paper>
   );
 };
 export default CardWithImage;

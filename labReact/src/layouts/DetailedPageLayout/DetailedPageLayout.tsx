@@ -5,13 +5,13 @@ import Header from 'components/Header';
 import Footer from 'components/Footer';
 
 // Styles
-import classes from './PageLayout.module.scss';
+import classes from './DetailedPageLayout.module.scss';
 
 interface IProps {
   children: ReactNode;
 }
 
-const PageLayout: FC<IProps> = ({ children }): ReactElement => {
+const DetailedPageLayout: FC<IProps> = ({ children }): ReactElement => {
   return (
     <div className={classes.maxHeight}>
       <Header />
@@ -21,4 +21,4 @@ const PageLayout: FC<IProps> = ({ children }): ReactElement => {
   );
 };
 
-export default PageLayout;
+export default DetailedPageLayout;

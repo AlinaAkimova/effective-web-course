@@ -11,8 +11,9 @@
     max-width: 200px;
     max-height: 60px;
   }
+
   .headerBottoms {
-    min-width: 25%;
+    min-width: 30%;
 
     .headerBottomsList {
       display: flex;
@@ -30,7 +31,17 @@
       .orangeTextDecoration {
         color: $color-orange-light;
         text-decoration: underline;
+        font-weight: bold;
+        font-size: 20px;
       }
     }
+  }
+
+  .headerIcons {
+    min-width: 10%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: $color-white;
   }
 }

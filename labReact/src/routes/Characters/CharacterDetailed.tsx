@@ -8,7 +8,7 @@ import characterStore from 'stores/CharacterStore';
 import DetailedCard from 'components/DetailedCard';
 
 // Layouts
-import PageLayout from 'layouts/PageLayout';
+import PageLayout from 'layouts/DetailedPageLayout';
 
 const CharacterDetailed: FC = observer(() => {
   const { character, id, loadCharacter } = characterStore;

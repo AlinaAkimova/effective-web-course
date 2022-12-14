@@ -3,6 +3,11 @@ import { Link, useMatch } from 'react-router-dom';
 
 import { Toolbar } from '@mui/material';
 
+// Icons
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import TranslateIcon from '@mui/icons-material/Translate';
+// import WbSunnyIcon from '@mui/icons-material/WbSunny';
+
 // Styles
 import classes from './Header.module.scss';
 
@@ -54,6 +59,10 @@ const Header: FC = () => {
           </li>
         </ul>
       </nav>
+      <div className={classes.headerIcons}>
+        <DarkModeIcon />
+        <TranslateIcon />
+      </div>
     </Toolbar>
   );
 };

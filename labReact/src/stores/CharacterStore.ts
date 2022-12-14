@@ -90,11 +90,14 @@ class CharacterStore {
           this.isLoad = true;
           this.total = data.total;
           this.error = data.error;
-          this.loading = data.loading;
         });
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      runInAction(() => {
+        this.loading = false;
+      });
     }
   };
 

@@ -26,7 +26,6 @@ const DetailedCard: FC<IDetailedCard> = ({ item }) => {
       <div className={classes.cardContainer}>
         <div className={classes.cardTextColumn}>
           <img src={item?.cardImage} alt="img" className={classes.cardImage} />
-
           <div className={classes.textColumn}>
             <h1>{item?.cardName}</h1>
             <div>{item?.cardDesc}</div>

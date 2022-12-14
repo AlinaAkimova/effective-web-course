@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 import { Grid } from '@mui/material';
 
 // Layouts
-import PageLayout from 'layouts/PageLayout';
+import PageLayout from 'layouts/MainPageLayout';
 
 // Components
 import CardWithImage from 'components/CardWithImage';
@@ -22,6 +22,7 @@ const SeriesList = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  padding: 15px;
 `;
 
 const SeriesContainer: FC = observer(() => {

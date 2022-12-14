@@ -29,7 +29,7 @@ const SearchBase: FC<ISearch> = ({ pageName, count, query, setQuery }) => {
           fullWidth
           id="outlined-basic"
           placeholder={`Search for ${pageName} by name`}
-          color="info"
+          color="primary"
           className={classes.searchInput}
           defaultValue={query}
           onChange={searchChange}

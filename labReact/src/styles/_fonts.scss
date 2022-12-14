@@ -1,17 +1,23 @@
-/* Обычный */
 @font-face {
-  font-family: 'Marvel';
-  src: local('Marvel'),
-    url('src/assets/fonts/Marvel-Regular.ttf') format('truetype');
+  font-family: 'Montserrat';
+  src: local('Montserrat'),
+    url('src/assets/fonts/Montserrat-Medium.ttf') format('truetype');
   font-style: normal;
   font-weight: normal;
 }
 
-/* Жирный */
 @font-face {
-  font-family: 'Marvel';
-  src: local('Marvel'),
-    url('src/assets/fonts/Marvel-Bold.ttf') format('truetype');
+  font-family: 'Montserrat';
+  src: local('Montserrat'),
+    url('src/assets/fonts/Montserrat-Bold.ttf') format('truetype');
   font-style: normal;
   font-weight: bold;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: local('Montserrat'),
+    url('src/assets/fonts/Montserrat-ExtraLight.ttf') format('truetype');
+  font-style: normal;
+  font-weight: lighter;
 }

@@ -8,7 +8,7 @@ import seriesStore from 'stores/SeriesStore';
 import DetailedCard from 'components/DetailedCard';
 
 // Layouts
-import PageLayout from 'layouts/PageLayout';
+import PageLayout from 'layouts/DetailedPageLayout';
 
 const SeriesDetailed: FC = observer(() => {
   const { loadOneSeries, oneSeries, id } = seriesStore;

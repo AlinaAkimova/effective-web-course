@@ -8,7 +8,7 @@ import { Grid } from '@mui/material';
 import comicsStore from 'stores/ComicsStore';
 
 // Layouts
-import PageLayout from 'layouts/PageLayout';
+import PageLayout from 'layouts/MainPageLayout';
 
 // Components
 import SearchBase from 'components/SearchBase';
@@ -22,6 +22,7 @@ const ComicsList = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  padding: 15px;
 `;
 
 const ComicsContainer: FC = observer(() => {
