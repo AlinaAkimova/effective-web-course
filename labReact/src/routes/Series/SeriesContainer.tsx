@@ -21,8 +21,11 @@ import classes from '../Routes.module.scss';
 const SeriesList = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: flex-start;
   padding: 15px;
+  width: 80%;
 `;
 
 const SeriesContainer: FC = observer(() => {
@@ -54,16 +57,19 @@ const SeriesContainer: FC = observer(() => {
     <PageLayout>
       {!loading ? (
         <div className={classes.mainSize}>
-          <SearchBase
-            pageName="series"
-            count={total}
-            query={query}
-            setQuery={setQuery}
-          />
+          <div className={classes.searchStyle}>
+            <SearchBase
+              pageName="series"
+              count={total}
+              query={query}
+              setQuery={setQuery}
+            />
+          </div>
           {error ? (
             <h1>Something went wrong......</h1>
           ) : (
             <VirtuosoGrid
+              style={{ width: '100%' }}
               className={classes.virtuoso}
               components={{
                 Item: Grid,

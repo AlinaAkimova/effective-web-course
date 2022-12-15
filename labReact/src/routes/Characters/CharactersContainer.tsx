@@ -32,9 +32,8 @@ const CharactersList = styled.div`
   flex-wrap: wrap;
   margin-left: auto;
   margin-right: auto;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: 15px;
-  width: 80%;
 `;
 
 const CharactersContainer: FC = observer(() => {
@@ -51,7 +50,7 @@ const CharactersContainer: FC = observer(() => {
     loading
   } = characterStore;
 
-  const { mode, setMode } = useContext(DarkMode);
+  const { mode } = useContext(DarkMode);
 
   const loadNext = useCallback(() => {
     return setTimeout(() => {
@@ -89,7 +88,7 @@ const CharactersContainer: FC = observer(() => {
                 List: CharactersList as ComponentType<
                   GridListProps & { context?: unknown }
                 >,
-                ScrollSeekPlaceholder: () => <Grid item xs={3} />,
+                ScrollSeekPlaceholder: () => <Grid item xs={2} />,
                 Footer: () => {
                   return offset + 20 < total ? (
                     <div className={classes.virtuosoFooter}>Loading...</div>

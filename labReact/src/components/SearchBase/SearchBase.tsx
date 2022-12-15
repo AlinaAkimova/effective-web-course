@@ -1,12 +1,14 @@
 import React, {
   FC,
-  useState,
   useCallback,
   ChangeEvent,
-  useContext
+  useContext,
+  useMemo,
+  useEffect
 } from 'react';
-import { TextField, Button } from '@mui/material';
-// import debounce from 'lodash.debounce';
+import { TextField } from '@mui/material';
+
+import debounce from 'lodash.debounce';
 
 // Context
 import DarkMode from 'DarkMode/DarkMode';
@@ -22,11 +24,20 @@ interface ISearch {
 }
 
 const SearchBase: FC<ISearch> = ({ pageName, count, query, setQuery }) => {
-  const [search, setSearch] = useState<string>(query);
   const searchChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value);
+    setQuery(e.target.value);
   }, []);
   const { mode } = useContext(DarkMode);
+
+  const debouncedResults = useMemo(() => {
+    return debounce(searchChange, 3000);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      debouncedResults.cancel();
+    };
+  });
 
   return (
     <div className={classes.pageNameAndSearch}>
@@ -44,17 +55,8 @@ const SearchBase: FC<ISearch> = ({ pageName, count, query, setQuery }) => {
           } `}
           focused
           defaultValue={query}
-          onChange={searchChange}
+          onChange={debouncedResults}
         />
-        <Button
-          variant="contained"
-          className={classes.searchButton}
-          onClick={() => {
-            setQuery(search);
-          }}
-        >
-          Search
-        </Button>
       </div>
     </div>
   );

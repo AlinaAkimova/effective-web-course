@@ -39,8 +39,6 @@ class CharacterStore {
   @observable
   loading: boolean = false;
 
-  clearSearch: boolean = false;
-
   constructor() {
     makeObservable(this);
   }
@@ -69,36 +67,34 @@ class CharacterStore {
 
   @action
   setQuery = (query: string): void => {
-    this.query = query;
-    this.isLoad = false;
-    this.clearSearch = true;
+    if (query !== this.query) {
+      this.query = query;
+      this.isLoad = false;
+      this.offset = 0;
+      this.characters = [];
+    }
   };
 
   @action
   loadCharacters = async (): Promise<void> => {
     try {
       if (!this.isLoad) {
-        if (this.clearSearch) {
-          this.offset = 0;
-          this.characters = [];
-          this.clearSearch = false;
-        }
         const data = await getCharacters(this.query, this.offset);
         runInAction(() => {
           this.loading = true;
-          // this.characters = [...this.characters, ...data.characters];
-          this.characters = [
-            {
-              cardId: 1,
-              cardImage: 'src/assets/characters/a-b.jpg',
-              cardName: 'A-Bomb',
-              cardDesc: 'aaaaaaaddddddddddddg',
-              cardType: PageType.character
-            }
-          ];
+          this.characters = [...this.characters, ...data.characters];
+          // this.characters = [
+          //   {
+          //     cardId: 1,
+          //     cardImage: 'src/assets/characters/a-b.jpg',
+          //     cardName: 'A-Bomb',
+          //     cardDesc: 'aaaaaaaddddddddddddg',
+          //     cardType: PageType.character
+          //   }
+          // ];
           this.isLoad = true;
           this.total = data.total;
-          // this.error = data.error;
+          this.error = data.error;
         });
       }
     } catch (error) {

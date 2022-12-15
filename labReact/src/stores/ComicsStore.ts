@@ -69,20 +69,18 @@ class ComicsStore {
 
   @action
   setQuery = (query: string): void => {
-    this.query = query;
-    this.isLoad = false;
-    this.clearSearch = true;
+    if (query !== this.query) {
+      this.query = query;
+      this.isLoad = false;
+      this.offset = 0;
+      this.comics = [];
+    }
   };
 
   @action
   loadComics = async (): Promise<void> => {
     try {
       if (!this.isLoad) {
-        if (this.clearSearch) {
-          this.offset = 0;
-          this.comics = [];
-          this.clearSearch = false;
-        }
         const data = await getComics(this.query, this.offset);
 
         runInAction(() => {

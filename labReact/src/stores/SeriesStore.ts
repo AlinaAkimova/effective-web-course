@@ -69,20 +69,18 @@ class SeriesStore {
 
   @action
   setQuery = (query: string): void => {
-    this.query = query;
-    this.isLoad = false;
-    this.clearSearch = true;
+    if (query !== this.query) {
+      this.query = query;
+      this.isLoad = false;
+      this.offset = 0;
+      this.series = [];
+    }
   };
 
   @action
   loadSeries = async (): Promise<void> => {
     try {
       if (!this.isLoad) {
-        if (this.clearSearch) {
-          this.offset = 0;
-          this.series = [];
-          this.clearSearch = false;
-        }
         const data = await getSeries(this.query, this.offset);
 
         runInAction(() => {
