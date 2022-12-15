@@ -1,11 +1,18 @@
 @import 'src/styles';
 
+.light {
+  background-color: $color-red;
+}
+
+.dark {
+  background-color: $color-dark-grey;
+}
+
 .header {
   display: flex;
   flex: 0 0 auto;
   justify-content: space-between;
   align-items: center;
-  background-color: $color-red;
 
   .headerLogo {
     max-width: 200px;
@@ -42,6 +49,9 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    color: $color-white;
+
+    .iconColor {
+      color: $color-white;
+    }
   }
 }

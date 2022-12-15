@@ -1,6 +1,14 @@
+@import 'src/styles';
+
 .mainSize {
   min-height: 80%;
   width: 100%;
+
+  .searchStyle {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
   .virtuoso {
     .virtuosoFooter {
@@ -9,4 +17,12 @@
       justify-content: center;
     }
   }
+}
+
+.dark {
+  background-color: $color-black;
+}
+
+.light {
+  background-color: $color-white;
 }

@@ -1,6 +1,15 @@
-import React, { FC, useState, useCallback, ChangeEvent } from 'react';
+import React, {
+  FC,
+  useState,
+  useCallback,
+  ChangeEvent,
+  useContext
+} from 'react';
 import { TextField, Button } from '@mui/material';
 // import debounce from 'lodash.debounce';
+
+// Context
+import DarkMode from 'DarkMode/DarkMode';
 
 // Styles
 import classes from './SearchBase.module.scss';
@@ -17,6 +26,7 @@ const SearchBase: FC<ISearch> = ({ pageName, count, query, setQuery }) => {
   const searchChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   }, []);
+  const { mode } = useContext(DarkMode);
 
   return (
     <div className={classes.pageNameAndSearch}>
@@ -27,10 +37,12 @@ const SearchBase: FC<ISearch> = ({ pageName, count, query, setQuery }) => {
       <div className={classes.searchBase}>
         <TextField
           fullWidth
-          id="outlined-basic"
           placeholder={`Search for ${pageName} by name`}
           color="primary"
-          className={classes.searchInput}
+          className={`${classes.searchInput} ${
+            mode === 'light' ? classes.light : classes.dark
+          } `}
+          focused
           defaultValue={query}
           onChange={searchChange}
         />

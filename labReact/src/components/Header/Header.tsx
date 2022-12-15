@@ -1,19 +1,30 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import { Link, useMatch } from 'react-router-dom';
 
-import { Toolbar } from '@mui/material';
+import { IconButton, Toolbar } from '@mui/material';
 
 // Icons
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import TranslateIcon from '@mui/icons-material/Translate';
-// import WbSunnyIcon from '@mui/icons-material/WbSunny';
+import WbSunnyIcon from '@mui/icons-material/WbSunny';
+
+// Contexst
+import DarkMode from 'DarkMode/DarkMode';
 
 // Styles
 import classes from './Header.module.scss';
 
 const Header: FC = () => {
+  const { mode, setMode } = useContext(DarkMode);
+  const chooseMode = () => {
+    return mode === 'dark' ? setMode('light') : setMode('dark');
+  };
   return (
-    <Toolbar className={classes.header}>
+    <Toolbar
+      className={`${classes.header} ${
+        mode === 'light' ? classes.light : classes.dark
+      } `}
+    >
       <img
         src="/marvel_logo.svg"
         alt="logo marvel"
@@ -60,8 +71,20 @@ const Header: FC = () => {
         </ul>
       </nav>
       <div className={classes.headerIcons}>
-        <DarkModeIcon />
-        <TranslateIcon />
+        <IconButton
+          onClick={() => {
+            chooseMode();
+          }}
+        >
+          {mode === 'light' ? (
+            <DarkModeIcon className={classes.iconColor} />
+          ) : (
+            <WbSunnyIcon className={classes.iconColor} />
+          )}
+        </IconButton>
+        <IconButton>
+          <TranslateIcon className={classes.iconColor} />
+        </IconButton>
       </div>
     </Toolbar>
   );

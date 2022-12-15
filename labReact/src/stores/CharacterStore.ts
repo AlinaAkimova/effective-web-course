@@ -7,7 +7,7 @@ import {
 } from 'mobx';
 
 // Types
-import { ICard } from 'types/card';
+import { ICard, PageType } from 'types/card';
 
 // API
 import { getCharacter, getCharacters } from '../api/characters';
@@ -86,10 +86,19 @@ class CharacterStore {
         const data = await getCharacters(this.query, this.offset);
         runInAction(() => {
           this.loading = true;
-          this.characters = [...this.characters, ...data.characters];
+          // this.characters = [...this.characters, ...data.characters];
+          this.characters = [
+            {
+              cardId: 1,
+              cardImage: 'src/assets/characters/a-b.jpg',
+              cardName: 'A-Bomb',
+              cardDesc: 'aaaaaaaddddddddddddg',
+              cardType: PageType.character
+            }
+          ];
           this.isLoad = true;
           this.total = data.total;
-          this.error = data.error;
+          // this.error = data.error;
         });
       }
     } catch (error) {

@@ -1,6 +1,9 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Paper } from '@mui/material';
+
+// Context
+import DarkMode from 'DarkMode/DarkMode';
 
 // Types
 import { ICard } from 'types/card';
@@ -14,6 +17,8 @@ interface IComponentCard {
   openCard(id: number): void;
 }
 const CardWithImage: FC<IComponentCard> = ({ pageName, item, openCard }) => {
+  const { mode } = useContext(DarkMode);
+
   const descriptionSubpage = () => {
     if (item.cardDesc) {
       return item.cardDesc.length < 70
@@ -24,7 +29,12 @@ const CardWithImage: FC<IComponentCard> = ({ pageName, item, openCard }) => {
   };
 
   return (
-    <Paper elevation={6} className={classes.cardContainer}>
+    <Paper
+      elevation={6}
+      className={`${classes.cardContainer} ${
+        mode === 'light' ? classes.light : classes.dark
+      } `}
+    >
       <Link
         to={`/${pageName}/${item.cardId}`}
         onClick={() => {
@@ -33,7 +43,11 @@ const CardWithImage: FC<IComponentCard> = ({ pageName, item, openCard }) => {
         className={classes.noDecoration}
       >
         <img src={item.cardImage} alt="img" />
-        <div className={classes.cardText}>
+        <div
+          className={`${classes.cardText} ${
+            mode === 'light' ? classes.light : classes.dark
+          } `}
+        >
           <div className={classes.redText}>{item.cardName}</div>
           <div>{descriptionSubpage()}</div>
         </div>

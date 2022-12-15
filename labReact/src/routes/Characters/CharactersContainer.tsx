@@ -1,4 +1,10 @@
-import React, { ComponentType, FC, useCallback, useEffect } from 'react';
+import React, {
+  ComponentType,
+  FC,
+  useCallback,
+  useEffect,
+  useContext
+} from 'react';
 import { observer } from 'mobx-react-lite';
 import { VirtuosoGrid, GridListProps } from 'react-virtuoso';
 import styled from '@emotion/styled';
@@ -6,6 +12,9 @@ import { Grid } from '@mui/material';
 
 // Layouts
 import PageLayout from 'layouts/MainPageLayout';
+
+// Contexst
+import DarkMode from 'DarkMode/DarkMode';
 
 // Stores
 import characterStore from 'stores/CharacterStore';
@@ -21,8 +30,11 @@ import classes from '../Routes.module.scss';
 const CharactersList = styled.div`
   display: flex;
   flex-wrap: wrap;
+  margin-left: auto;
+  margin-right: auto;
   justify-content: space-between;
   padding: 15px;
+  width: 80%;
 `;
 
 const CharactersContainer: FC = observer(() => {
@@ -39,6 +51,8 @@ const CharactersContainer: FC = observer(() => {
     loading
   } = characterStore;
 
+  const { mode, setMode } = useContext(DarkMode);
+
   const loadNext = useCallback(() => {
     return setTimeout(() => {
       loadCharacters();
@@ -54,18 +68,22 @@ const CharactersContainer: FC = observer(() => {
     <PageLayout>
       {!loading ? (
         <div className={classes.mainSize}>
-          <SearchBase
-            pageName="characters"
-            count={total}
-            query={query}
-            setQuery={setQuery}
-          />
-
+          <div className={classes.searchStyle}>
+            <SearchBase
+              pageName="characters"
+              count={total}
+              query={query}
+              setQuery={setQuery}
+            />
+          </div>
           {error ? (
             <h1>Something went wrong......</h1>
           ) : (
             <VirtuosoGrid
-              className={classes.virtuoso}
+              style={{ width: '100%' }}
+              className={`${classes.virtuoso} ${
+                mode === 'light' ? classes.light : classes.dark
+              } `}
               components={{
                 Item: Grid,
                 List: CharactersList as ComponentType<

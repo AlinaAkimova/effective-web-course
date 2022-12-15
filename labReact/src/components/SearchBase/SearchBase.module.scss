@@ -27,6 +27,18 @@
       }
     }
 
+    .dark {
+      input {
+        color: $color-white;
+        border: 1px solid $color-grey;
+
+        &:hover,
+        &:focus {
+          border: 1px solid $color-grey;
+        }
+      }
+    }
+
     .searchButton {
       color: $color-white;
       background-color: $color-orange-light;
