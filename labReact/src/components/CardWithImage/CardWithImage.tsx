@@ -1,9 +1,12 @@
-import React, { FC, useContext } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Paper } from '@mui/material';
 
 // Context
 import DarkMode from 'DarkMode/DarkMode';
+
+// Components
+import Favorites from 'components/Favorites';
 
 // Types
 import { ICard } from 'types/card';
@@ -15,9 +18,17 @@ interface IComponentCard {
   pageName: string;
   item: ICard;
   openCard(id: number): void;
+  setFavorites(card: ICard, func: boolean): void;
 }
-const CardWithImage: FC<IComponentCard> = ({ pageName, item, openCard }) => {
+const CardWithImage: FC<IComponentCard> = ({
+  pageName,
+  item,
+  setFavorites,
+  openCard
+}) => {
   const { mode } = useContext(DarkMode);
+  const [isHovering, setIsHovering] = useState<boolean>(false);
+  const [isFavorite, setIsFavorite] = useState<boolean>(item.favorite);
 
   const descriptionSubpage = () => {
     if (item.cardDesc) {
@@ -26,6 +37,14 @@ const CardWithImage: FC<IComponentCard> = ({ pageName, item, openCard }) => {
         : `${item.cardDesc.substring(0, 70)}...`;
     }
     return '';
+  };
+
+  const handleMouseOver = () => {
+    return setIsHovering(true);
+  };
+
+  const handleMouseOut = () => {
+    return setIsHovering(false);
   };
 
   return (
@@ -41,6 +60,8 @@ const CardWithImage: FC<IComponentCard> = ({ pageName, item, openCard }) => {
           openCard(item.cardId);
         }}
         className={classes.noDecoration}
+        onMouseOver={handleMouseOver}
+        onMouseOut={handleMouseOut}
       >
         <img src={item.cardImage} alt="img" />
         <div
@@ -52,6 +73,20 @@ const CardWithImage: FC<IComponentCard> = ({ pageName, item, openCard }) => {
           <div>{descriptionSubpage()}</div>
         </div>
       </Link>
+      {isHovering ? (
+        <div className={classes.icon}>
+          <Favorites
+            handleMouseOver={handleMouseOver}
+            handleMouseOut={handleMouseOut}
+            card={item}
+            isFavorite={isFavorite}
+            setIsFavorite={setIsFavorite}
+            setFavorites={setFavorites}
+          />
+        </div>
+      ) : (
+        ''
+      )}
     </Paper>
   );
 };

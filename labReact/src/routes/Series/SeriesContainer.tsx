@@ -23,9 +23,7 @@ const SeriesList = styled.div`
   flex-wrap: wrap;
   margin-left: auto;
   margin-right: auto;
-  justify-content: flex-start;
-  padding: 15px;
-  width: 80%;
+  justify-content: space-around;
 `;
 
 const SeriesContainer: FC = observer(() => {
@@ -39,7 +37,8 @@ const SeriesContainer: FC = observer(() => {
     setQuery,
     total,
     error,
-    loading
+    loading,
+    setFavorites
   } = seriesStore;
 
   const loadNext = useCallback(() => {
@@ -69,7 +68,6 @@ const SeriesContainer: FC = observer(() => {
             <h1>Something went wrong......</h1>
           ) : (
             <VirtuosoGrid
-              style={{ width: '100%' }}
               className={classes.virtuoso}
               components={{
                 Item: Grid,
@@ -89,7 +87,12 @@ const SeriesContainer: FC = observer(() => {
               data={seriesList}
               endReached={incrementOffset}
               itemContent={(index, item) => (
-                <CardWithImage pageName="series" item={item} openCard={setId} />
+                <CardWithImage
+                  pageName="series"
+                  item={item}
+                  openCard={setId}
+                  setFavorites={setFavorites}
+                />
               )}
             />
           )}

@@ -23,15 +23,15 @@ interface IProps {
 const MainPageLayout: FC<IProps> = ({ children }): ReactElement => {
   const { mode } = useContext(DarkMode);
 
-  // useEffect(() => {
-  //   if (mode === 'dark') {
-  //     document.body.classList.remove(classes.light);
-  //     document.body.classList.add(classes.dark);
-  //   } else {
-  //     document.body.classList.remove(classes.dark);
-  //     document.body.classList.add(classes.light);
-  //   }
-  // }, [mode]);
+  useEffect(() => {
+    if (mode === 'dark') {
+      document.body.classList.remove(classes.light);
+      document.body.classList.add(classes.dark);
+    } else {
+      document.body.classList.remove(classes.dark);
+      document.body.classList.add(classes.light);
+    }
+  }, [mode]);
 
   return (
     <div

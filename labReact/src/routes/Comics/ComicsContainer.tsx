@@ -23,9 +23,7 @@ const ComicsList = styled.div`
   flex-wrap: wrap;
   margin-left: auto;
   margin-right: auto;
-  justify-content: flex-start;
-  padding: 15px;
-  width: 100%;
+  justify-content: space-around;
 `;
 
 const ComicsContainer: FC = observer(() => {
@@ -39,7 +37,8 @@ const ComicsContainer: FC = observer(() => {
     incrementOffset,
     total,
     error,
-    loading
+    loading,
+    setFavorites
   } = comicsStore;
 
   const loadNext = useCallback(() => {
@@ -69,7 +68,6 @@ const ComicsContainer: FC = observer(() => {
             <h1>Something went wrong......</h1>
           ) : (
             <VirtuosoGrid
-              style={{ width: '80%' }}
               className={classes.virtuoso}
               components={{
                 Item: Grid,
@@ -89,7 +87,12 @@ const ComicsContainer: FC = observer(() => {
               data={comicsList}
               endReached={incrementOffset}
               itemContent={(index, item) => (
-                <CardWithImage pageName="comics" item={item} openCard={setId} />
+                <CardWithImage
+                  pageName="comics"
+                  item={item}
+                  openCard={setId}
+                  setFavorites={setFavorites}
+                />
               )}
             />
           )}

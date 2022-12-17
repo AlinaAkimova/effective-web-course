@@ -68,7 +68,8 @@ export const getCharacters = (
               cardDesc: character.description,
               cardType: PageType.character,
               series: [],
-              comics: []
+              comics: [],
+              favorite: false
             };
           }
         ), total: characters.data.data.total, error: false, loading: false };

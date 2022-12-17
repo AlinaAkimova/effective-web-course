@@ -8,6 +8,7 @@
   margin: 50px 15px;
   overflow: hidden;
   transition: transform 0.3s ease-in-out;
+  position: relative;
 
   &:hover {
     transform: scale(1.1);
@@ -40,6 +41,17 @@
       color: $color-red;
       font-weight: bold;
       font-size: 16px;
+    }
+  }
+
+  .icon {
+    position: absolute;
+    right: 0;
+    border: 1px solid $color-red;
+    border-radius: 30px;
+
+    .iconColor {
+      color: $color-white;
     }
   }
 }

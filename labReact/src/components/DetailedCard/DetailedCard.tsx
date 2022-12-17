@@ -1,5 +1,8 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import { Link } from 'react-router-dom';
+
+// Context
+import DarkMode from 'DarkMode/DarkMode';
 
 // Types
 import { ICard } from 'types/card';
@@ -17,6 +20,8 @@ interface IDetailedCard {
 }
 
 const DetailedCard: FC<IDetailedCard> = ({ item }) => {
+  const { mode } = useContext(DarkMode);
+
   const { setId: setIdCh } = characterStore;
   const { setId: setIdCom } = comicsStore;
   const { setId: setIdS } = seriesStore;
@@ -28,7 +33,9 @@ const DetailedCard: FC<IDetailedCard> = ({ item }) => {
           <img src={item?.cardImage} alt="img" className={classes.cardImage} />
           <div className={classes.textColumn}>
             <h1>{item?.cardName}</h1>
-            <div>{item?.cardDesc}</div>
+            <div className={`${mode === 'dark' && classes.dark} `}>
+              {item?.cardDesc}
+            </div>
           </div>
         </div>
 
@@ -42,6 +49,7 @@ const DetailedCard: FC<IDetailedCard> = ({ item }) => {
                       <Link
                         to={`/comics/${el.id}`}
                         onClick={() => setIdCom(el.id)}
+                        className={`${mode === 'dark' && classes.darkLink} `}
                       >
                         {el.name}
                       </Link>
@@ -52,6 +60,7 @@ const DetailedCard: FC<IDetailedCard> = ({ item }) => {
                       <Link
                         to={`/characters/${el.id}`}
                         onClick={() => setIdCh(el.id)}
+                        className={`${mode === 'dark' && classes.darkLink} `}
                       >
                         {el.name}
                       </Link>
@@ -70,6 +79,7 @@ const DetailedCard: FC<IDetailedCard> = ({ item }) => {
                         <Link
                           to={`/comics/${el.id}`}
                           onClick={() => setIdCom(el.id)}
+                          className={`${mode === 'dark' && classes.darkLink} `}
                         >
                           {el.name}
                         </Link>
@@ -80,6 +90,7 @@ const DetailedCard: FC<IDetailedCard> = ({ item }) => {
                         <Link
                           to={`/series/${el.id}`}
                           onClick={() => setIdS(el.id)}
+                          className={`${mode === 'dark' && classes.darkLink} `}
                         >
                           {el.name}
                         </Link>

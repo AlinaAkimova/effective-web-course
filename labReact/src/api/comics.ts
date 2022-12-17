@@ -59,7 +59,8 @@ export const getComics = (
             cardDesc: comicsOne.description,
             cardType: PageType.comics,
             characters: [],
-            series: []
+            series: [],
+            favorite: false
           };
         }), total: comics.data.data.total, error: false };
     })

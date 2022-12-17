@@ -44,3 +44,16 @@
     }
   }
 }
+
+.dark {
+  color: $color-white;
+}
+
+.darkLink {
+  color: $color-grey;
+  text-decoration: none;
+}
+
+.light {
+  color: $color-black;
+}

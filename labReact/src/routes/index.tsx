@@ -8,6 +8,7 @@ import SeriesContainer from './Series/SeriesContainer';
 import CharacterDetailed from './Characters/CharacterDetailed';
 import ComicsDetailed from './Comics/ComicsDetailed';
 import SeriesDetailed from './Series/SeriesDetailed';
+import Favorites from './Favorites/Favorites';
 
 export const router = createBrowserRouter([
   {
@@ -37,5 +38,9 @@ export const router = createBrowserRouter([
   {
     path: '/series/:seriesId',
     element: <SeriesDetailed />
+  },
+  {
+    path: '/favorites',
+    element: <Favorites />
   }
 ]);

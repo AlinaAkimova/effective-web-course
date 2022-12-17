@@ -7,6 +7,7 @@ export interface ICard {
   characters?: CardList[];
   comics?: CardList[];
   series?: CardList[];
+  favorite: boolean;
 }
 
 export enum PageType {

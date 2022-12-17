@@ -32,8 +32,7 @@ const CharactersList = styled.div`
   flex-wrap: wrap;
   margin-left: auto;
   margin-right: auto;
-  justify-content: flex-start;
-  padding: 15px;
+  justify-content: space-around;
 `;
 
 const CharactersContainer: FC = observer(() => {
@@ -47,7 +46,8 @@ const CharactersContainer: FC = observer(() => {
     incrementOffset,
     total,
     error,
-    loading
+    loading,
+    setFavorites
   } = characterStore;
 
   const { mode } = useContext(DarkMode);
@@ -79,7 +79,6 @@ const CharactersContainer: FC = observer(() => {
             <h1>Something went wrong......</h1>
           ) : (
             <VirtuosoGrid
-              style={{ width: '100%' }}
               className={`${classes.virtuoso} ${
                 mode === 'light' ? classes.light : classes.dark
               } `}
@@ -88,7 +87,7 @@ const CharactersContainer: FC = observer(() => {
                 List: CharactersList as ComponentType<
                   GridListProps & { context?: unknown }
                 >,
-                ScrollSeekPlaceholder: () => <Grid item xs={2} />,
+                ScrollSeekPlaceholder: () => <Grid item xs={6} />,
                 Footer: () => {
                   return offset + 20 < total ? (
                     <div className={classes.virtuosoFooter}>Loading...</div>
@@ -105,6 +104,7 @@ const CharactersContainer: FC = observer(() => {
                   pageName="characters"
                   item={item}
                   openCard={setId}
+                  setFavorites={setFavorites}
                 />
               )}
             />

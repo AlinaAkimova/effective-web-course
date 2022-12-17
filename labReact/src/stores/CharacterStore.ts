@@ -7,14 +7,18 @@ import {
 } from 'mobx';
 
 // Types
-import { ICard, PageType } from 'types/card';
+import { ICard } from 'types/card';
 
 // API
 import { getCharacter, getCharacters } from '../api/characters';
 
 class CharacterStore {
+  constructor() {
+    makeObservable(this);
+  }
+
   @observable
-  characters: ICard[] | [] = [];
+  characters: ICard[] = [];
 
   @observable
   character: ICard | undefined = undefined;
@@ -28,6 +32,11 @@ class CharacterStore {
   isLoad: boolean = false;
 
   @observable
+  favorites: ICard[] = JSON.parse(
+    localStorage.getItem('charactersFavorites') ?? '[]'
+  );
+
+  @observable
   query: string = '';
 
   @observable
@@ -38,10 +47,6 @@ class CharacterStore {
 
   @observable
   loading: boolean = false;
-
-  constructor() {
-    makeObservable(this);
-  }
 
   @computed
   get charactersList() {
@@ -57,6 +62,27 @@ class CharacterStore {
   @action
   setOffset = (offset: number) => {
     this.offset = offset;
+  };
+
+  @action
+  setFavorites = (favorite: ICard, func: boolean) => {
+    if (func) {
+      this.favorites.push({ ...favorite, favorite: func });
+    } else {
+      this.favorites.splice(
+        this.favorites.findIndex((card) => {
+          return card.cardId === favorite.cardId;
+        }),
+        1
+      );
+    }
+    const index = this.characters.findIndex((card) => {
+      return card.cardId === favorite.cardId;
+    });
+    if (index !== -1) {
+      this.updateFavoriteInArray(this.characters, index, favorite, func);
+    }
+    localStorage.setItem('charactersFavorites', JSON.stringify(this.favorites));
   };
 
   @action
@@ -80,18 +106,16 @@ class CharacterStore {
     try {
       if (!this.isLoad) {
         const data = await getCharacters(this.query, this.offset);
+        const favArr = data.characters.map((item) => {
+          return this.favorites.findIndex((card) => {
+            return card.cardId === item.cardId;
+          }) === -1
+            ? item
+            : { ...item, favorite: true };
+        });
         runInAction(() => {
           this.loading = true;
-          this.characters = [...this.characters, ...data.characters];
-          // this.characters = [
-          //   {
-          //     cardId: 1,
-          //     cardImage: 'src/assets/characters/a-b.jpg',
-          //     cardName: 'A-Bomb',
-          //     cardDesc: 'aaaaaaaddddddddddddg',
-          //     cardType: PageType.character
-          //   }
-          // ];
+          this.characters = [...this.characters, ...favArr];
           this.isLoad = true;
           this.total = data.total;
           this.error = data.error;
@@ -116,6 +140,15 @@ class CharacterStore {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  updateFavoriteInArray = (
+    cards: ICard[],
+    index: number,
+    favorite: ICard,
+    func: boolean
+  ) => {
+    cards.splice(index, 1, { ...favorite, favorite: func });
   };
 }
 

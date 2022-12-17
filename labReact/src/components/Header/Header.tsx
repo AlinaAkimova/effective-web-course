@@ -7,6 +7,7 @@ import { IconButton, Toolbar } from '@mui/material';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import TranslateIcon from '@mui/icons-material/Translate';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 // Contexst
 import DarkMode from 'DarkMode/DarkMode';
@@ -71,6 +72,11 @@ const Header: FC = () => {
         </ul>
       </nav>
       <div className={classes.headerIcons}>
+        <Link to="/favorites">
+          <IconButton>
+            <FavoriteIcon className={classes.iconColor} />
+          </IconButton>
+        </Link>
         <IconButton
           onClick={() => {
             chooseMode();
@@ -82,6 +88,7 @@ const Header: FC = () => {
             <WbSunnyIcon className={classes.iconColor} />
           )}
         </IconButton>
+
         <IconButton>
           <TranslateIcon className={classes.iconColor} />
         </IconButton>

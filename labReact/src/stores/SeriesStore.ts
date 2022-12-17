@@ -20,6 +20,11 @@ class SeriesStore {
   oneSeries: ICard | undefined = undefined;
 
   @observable
+  favorites: ICard[] = JSON.parse(
+    localStorage.getItem('seriesFavorites') ?? '[]'
+  );
+
+  @observable
   loading: boolean = false;
 
   @observable
@@ -78,6 +83,27 @@ class SeriesStore {
   };
 
   @action
+  setFavorites = (favorite: ICard, func: boolean) => {
+    if (func) {
+      this.favorites.push({ ...favorite, favorite: func });
+    } else {
+      this.favorites.splice(
+        this.favorites.findIndex((card) => {
+          return card.cardId === favorite.cardId;
+        }),
+        1
+      );
+    }
+    const index = this.series.findIndex((card) => {
+      return card.cardId === favorite.cardId;
+    });
+    if (index !== -1) {
+      this.updateFavoriteInArray(this.series, index, favorite, func);
+    }
+    localStorage.setItem('seriesFavorites', JSON.stringify(this.favorites));
+  };
+
+  @action
   loadSeries = async (): Promise<void> => {
     try {
       if (!this.isLoad) {
@@ -110,6 +136,15 @@ class SeriesStore {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  updateFavoriteInArray = (
+    cards: ICard[],
+    index: number,
+    favorite: ICard,
+    func: boolean
+  ) => {
+    cards.splice(index, 1, { ...favorite, favorite: func });
   };
 }
 
