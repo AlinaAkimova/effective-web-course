@@ -3,10 +3,11 @@
 .cardPage {
   display: flex;
   flex-direction: column;
+  font-family: 'Montserrat', sans-serif !important;
 
   .cardContainer {
     display: flex;
-    margin: 50px;
+    margin: 50px 50px 0px 50px;
     height: 100%;
 
     .cardImage {

@@ -16,7 +16,8 @@ const resources = {
       FavEmpty: 'Your favorites section is empty',
       Footer: 'Data provided by Marvel',
       Loading: 'Loading',
-      Error: 'Something went wrong... Please, try later'
+      Error: 'Something went wrong... Please, try later',
+      NothingFound: 'Nothing found:('
     }
   },
   ru: {
@@ -33,7 +34,8 @@ const resources = {
       FavEmpty: 'Пока нет избранного! Добавьте что-нибудь!',
       Footer: 'Данные предоставлены Marvel',
       Loading: 'Загрузка',
-      Error: 'Что-то пошло не так... Пожалуйста, повторите попытку позже'
+      Error: 'Что-то пошло не так... Пожалуйста, повторите попытку позже',
+      NothingFound: 'Ничего не нашли:('
     }
   }
 };

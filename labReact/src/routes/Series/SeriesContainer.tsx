@@ -40,7 +40,7 @@ const SeriesContainer: FC = observer(() => {
     setQuery,
     total,
     error,
-    loading,
+    isLoad,
     setFavorites
   } = seriesStore;
 
@@ -59,49 +59,55 @@ const SeriesContainer: FC = observer(() => {
 
   return (
     <PageLayout>
-      {!loading ? (
+      {isLoad || seriesList.length ? (
         <div className={classes.mainSize}>
-          <div className={classes.searchStyle}>
-            <SearchBase
-              pageName="series"
-              count={total}
-              query={query}
-              setQuery={setQuery}
-            />
-          </div>
           {error ? (
-            <h1>{t('Error')}</h1>
+            <h2 className={classes.errorText}>{t('Error')}</h2>
           ) : (
-            <VirtuosoGrid
-              className={classes.virtuoso}
-              components={{
-                Item: Grid,
-                List: SeriesList as ComponentType<
-                  GridListProps & { context?: unknown }
-                >,
-                ScrollSeekPlaceholder: () => <Grid item xs={3} />,
-                Footer: () => {
-                  return offset + 20 < total ? (
-                    <div className={classes.virtuosoFooter}>
-                      {t('Loading')}...
-                    </div>
-                  ) : (
-                    <div />
-                  );
-                }
-              }}
-              overscan={200}
-              data={seriesList}
-              endReached={incrementOffset}
-              itemContent={(index, item) => (
-                <CardWithImage
+            <>
+              <div className={classes.searchStyle}>
+                <SearchBase
                   pageName="series"
-                  item={item}
-                  openCard={setId}
-                  setFavorites={setFavorites}
+                  count={total}
+                  query={query}
+                  setQuery={setQuery}
                 />
+              </div>
+              {seriesList.length ? (
+                <VirtuosoGrid
+                  className={classes.virtuoso}
+                  components={{
+                    Item: Grid,
+                    List: SeriesList as ComponentType<
+                      GridListProps & { context?: unknown }
+                    >,
+                    ScrollSeekPlaceholder: () => <Grid item xs={3} />,
+                    Footer: () => {
+                      return offset + 20 < total ? (
+                        <div className={classes.virtuosoFooter}>
+                          {t('Loading')}...
+                        </div>
+                      ) : (
+                        <div />
+                      );
+                    }
+                  }}
+                  overscan={200}
+                  data={seriesList}
+                  endReached={incrementOffset}
+                  itemContent={(index, item) => (
+                    <CardWithImage
+                      pageName="series"
+                      item={item}
+                      openCard={setId}
+                      setFavorites={setFavorites}
+                    />
+                  )}
+                />
+              ) : (
+                <h2 className={classes.errorText}>{t('NothingFound')}</h2>
               )}
-            />
+            </>
           )}
         </div>
       ) : (

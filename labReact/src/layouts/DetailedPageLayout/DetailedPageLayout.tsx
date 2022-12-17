@@ -24,7 +24,13 @@ const DetailedPageLayout: FC<IProps> = ({ children }): ReactElement => {
       } `}
     >
       <Header />
-      <div className={classes.children}>{children}</div>
+      <div
+        className={`${classes.children} ${
+          mode === 'light' ? classes.light : classes.dark
+        } `}
+      >
+        {children}
+      </div>
       <Footer />
     </div>
   );

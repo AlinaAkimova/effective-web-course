@@ -49,7 +49,7 @@ const CharactersContainer: FC = observer(() => {
     incrementOffset,
     total,
     error,
-    loading,
+    isLoad,
     setFavorites
   } = characterStore;
 
@@ -69,51 +69,58 @@ const CharactersContainer: FC = observer(() => {
 
   return (
     <PageLayout>
-      {!loading ? (
+      {isLoad || charactersList.length ? (
         <div className={classes.mainSize}>
-          <div className={classes.searchStyle}>
-            <SearchBase
-              pageName="characters"
-              count={total}
-              query={query}
-              setQuery={setQuery}
-            />
-          </div>
           {error ? (
-            <h1>{t('Error')}</h1>
+            <h2 className={classes.errorText}>{t('Error')}</h2>
           ) : (
-            <VirtuosoGrid
-              className={`${classes.virtuoso} ${
-                mode === 'light' ? classes.light : classes.dark
-              } `}
-              components={{
-                Item: Grid,
-                List: CharactersList as ComponentType<
-                  GridListProps & { context?: unknown }
-                >,
-                ScrollSeekPlaceholder: () => <Grid item xs={6} />,
-                Footer: () => {
-                  return offset + 20 < total ? (
-                    <div className={classes.virtuosoFooter}>
-                      {t('Loading')}...
-                    </div>
-                  ) : (
-                    <div />
-                  );
-                }
-              }}
-              overscan={200}
-              data={charactersList}
-              endReached={incrementOffset}
-              itemContent={(index, item) => (
-                <CardWithImage
+            <>
+              <div className={classes.searchStyle}>
+                <SearchBase
                   pageName="characters"
-                  item={item}
-                  openCard={setId}
-                  setFavorites={setFavorites}
+                  count={total}
+                  query={query}
+                  setQuery={setQuery}
                 />
+              </div>
+
+              {charactersList.length ? (
+                <VirtuosoGrid
+                  className={`${classes.virtuoso} ${
+                    mode === 'light' ? classes.light : classes.dark
+                  } `}
+                  components={{
+                    Item: Grid,
+                    List: CharactersList as ComponentType<
+                      GridListProps & { context?: unknown }
+                    >,
+                    ScrollSeekPlaceholder: () => <Grid item xs={6} />,
+                    Footer: () => {
+                      return offset + 20 < total ? (
+                        <div className={classes.virtuosoFooter}>
+                          {t('Loading')}...
+                        </div>
+                      ) : (
+                        <div />
+                      );
+                    }
+                  }}
+                  overscan={200}
+                  data={charactersList}
+                  endReached={incrementOffset}
+                  itemContent={(index, item) => (
+                    <CardWithImage
+                      pageName="characters"
+                      item={item}
+                      openCard={setId}
+                      setFavorites={setFavorites}
+                    />
+                  )}
+                />
+              ) : (
+                <h2 className={classes.errorText}>{t('NothingFound')}</h2>
               )}
-            />
+            </>
           )}
         </div>
       ) : (

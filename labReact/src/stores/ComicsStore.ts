@@ -133,7 +133,6 @@ class ComicsStore {
       runInAction(() => {
         this.oneComics = data;
       });
-      console.log(data);
     } catch (error) {
       console.error(error);
     }

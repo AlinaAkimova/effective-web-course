@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 // Context
 import DarkMode from 'darkMode/DarkMode';
 
+// Language
+import { useTranslation } from 'react-i18next';
+
 // Types
 import { ICard, PageType } from 'types/card';
 
@@ -21,6 +24,7 @@ interface IDetailedCard {
 
 const DetailedCard: FC<IDetailedCard> = ({ item }) => {
   const { mode } = useContext(DarkMode);
+  const { t } = useTranslation();
 
   const { setId: setIdCh } = characterStore;
   const { setId: setIdCom } = comicsStore;
@@ -42,7 +46,9 @@ const DetailedCard: FC<IDetailedCard> = ({ item }) => {
         <div className={classes.cardTextRow}>
           <div className={classes.textColumn}>
             <h2>
-              {item?.cardType === PageType.character ? 'Comics' : 'Characters'}
+              {item?.cardType === PageType.character
+                ? `${t('comics')}`
+                : `${t('characters')}`}
             </h2>
             <ul>
               {item?.cardType === PageType.character
@@ -72,7 +78,11 @@ const DetailedCard: FC<IDetailedCard> = ({ item }) => {
           </div>
 
           <div className={classes.textColumn}>
-            <h2>{item?.cardType === PageType.series ? 'Comics' : 'Series'}</h2>
+            <h2>
+              {item?.cardType === PageType.series
+                ? `${t('comics')}`
+                : `${t('series')}`}
+            </h2>
             <div>
               <ul>
                 {item?.cardType === PageType.series

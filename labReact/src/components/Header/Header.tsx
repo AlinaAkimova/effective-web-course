@@ -96,7 +96,7 @@ const Header: FC = () => {
         {mode === 'light' ? (
           <IconButton
             onClick={() => {
-              chooseMode('light');
+              chooseMode('dark');
             }}
           >
             <DarkModeIcon className={classes.iconColor} />

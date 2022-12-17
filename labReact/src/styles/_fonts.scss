@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'Montserrat';
   src: local('Montserrat'),
-    url('src/assets/fonts/Montserrat-Medium.ttf') format('truetype');
+    url('/src/assets/fonts/Montserrat-Medium.ttf') format('truetype');
   font-style: normal;
   font-weight: normal;
 }
@@ -9,7 +9,7 @@
 @font-face {
   font-family: 'Montserrat';
   src: local('Montserrat'),
-    url('src/assets/fonts/Montserrat-Bold.ttf') format('truetype');
+    url('/src/assets/fonts/Montserrat-Bold.ttf') format('truetype');
   font-style: normal;
   font-weight: bold;
 }
@@ -17,7 +17,7 @@
 @font-face {
   font-family: 'Montserrat';
   src: local('Montserrat'),
-    url('src/assets/fonts/Montserrat-ExtraLight.ttf') format('truetype');
+    url('/src/assets/fonts/Montserrat-ExtraLight.ttf') format('truetype');
   font-style: normal;
   font-weight: lighter;
 }
