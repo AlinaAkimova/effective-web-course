@@ -2,8 +2,8 @@ import React, { FC, useState } from 'react';
 import { RouterProvider } from 'react-router-dom';
 
 import { createTheme, ThemeProvider } from '@mui/material';
-
-import DarkMode, { defaultState } from 'DarkMode/DarkMode';
+import 'language/Language';
+import DarkMode, { defaultState } from 'darkMode/DarkMode';
 import { router } from 'routes';
 
 const theme = createTheme({
@@ -15,7 +15,7 @@ const theme = createTheme({
 });
 
 const App: FC = () => {
-  const [mode, setMode] = useState(defaultState.mode);
+  const [mode, setMode] = useState(localStorage.getItem('mode') ?? 'light');
 
   return (
     <DarkMode.Provider value={{ mode, setMode }}>

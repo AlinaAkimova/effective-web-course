@@ -14,10 +14,13 @@ import { Grid } from '@mui/material';
 import PageLayout from 'layouts/MainPageLayout';
 
 // Contexst
-import DarkMode from 'DarkMode/DarkMode';
+import DarkMode from 'darkMode/DarkMode';
 
 // Stores
 import characterStore from 'stores/CharacterStore';
+
+// Language
+import { useTranslation } from 'react-i18next';
 
 // Components
 import CardWithImage from 'components/CardWithImage';
@@ -51,6 +54,7 @@ const CharactersContainer: FC = observer(() => {
   } = characterStore;
 
   const { mode } = useContext(DarkMode);
+  const { t } = useTranslation();
 
   const loadNext = useCallback(() => {
     return setTimeout(() => {
@@ -76,7 +80,7 @@ const CharactersContainer: FC = observer(() => {
             />
           </div>
           {error ? (
-            <h1>Something went wrong......</h1>
+            <h1>{t('Error')}</h1>
           ) : (
             <VirtuosoGrid
               className={`${classes.virtuoso} ${
@@ -90,7 +94,9 @@ const CharactersContainer: FC = observer(() => {
                 ScrollSeekPlaceholder: () => <Grid item xs={6} />,
                 Footer: () => {
                   return offset + 20 < total ? (
-                    <div className={classes.virtuosoFooter}>Loading...</div>
+                    <div className={classes.virtuosoFooter}>
+                      {t('Loading')}...
+                    </div>
                   ) : (
                     <div />
                   );

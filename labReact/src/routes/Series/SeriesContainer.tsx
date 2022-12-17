@@ -12,6 +12,9 @@ import CardWithImage from 'components/CardWithImage';
 import SearchBase from 'components/SearchBase';
 import Loading from 'components/Loading';
 
+// Language
+import { useTranslation } from 'react-i18next';
+
 // Stores
 import seriesStore from 'stores/SeriesStore';
 
@@ -41,6 +44,8 @@ const SeriesContainer: FC = observer(() => {
     setFavorites
   } = seriesStore;
 
+  const { t } = useTranslation();
+
   const loadNext = useCallback(() => {
     return setTimeout(() => {
       loadSeries();
@@ -65,7 +70,7 @@ const SeriesContainer: FC = observer(() => {
             />
           </div>
           {error ? (
-            <h1>Something went wrong......</h1>
+            <h1>{t('Error')}</h1>
           ) : (
             <VirtuosoGrid
               className={classes.virtuoso}
@@ -77,7 +82,9 @@ const SeriesContainer: FC = observer(() => {
                 ScrollSeekPlaceholder: () => <Grid item xs={3} />,
                 Footer: () => {
                   return offset + 20 < total ? (
-                    <div className={classes.virtuosoFooter}>Loading...</div>
+                    <div className={classes.virtuosoFooter}>
+                      {t('Loading')}...
+                    </div>
                   ) : (
                     <div />
                   );

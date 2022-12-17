@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Paper } from '@mui/material';
 
 // Context
-import DarkMode from 'DarkMode/DarkMode';
+import DarkMode from 'darkMode/DarkMode';
 
 // Components
 import Favorites from 'components/Favorites';

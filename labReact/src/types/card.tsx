@@ -11,9 +11,9 @@ export interface ICard {
 }
 
 export enum PageType {
-  character = 'CHARACTER',
-  comics = 'COMICS',
-  series = 'SERIES'
+  character = 'characters',
+  comics = 'comics',
+  series = 'series'
 }
 
 export type CardList = {

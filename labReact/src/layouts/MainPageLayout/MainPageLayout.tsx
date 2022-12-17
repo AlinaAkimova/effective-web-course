@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 
 // Context
-import DarkMode from 'DarkMode/DarkMode';
+import DarkMode from 'darkMode/DarkMode';
 
 // Components
 import Header from 'components/Header';

@@ -1,4 +1,4 @@
-import React, { FC, useContext } from 'react';
+import React, { FC, useContext, useCallback } from 'react';
 import { Link, useMatch } from 'react-router-dom';
 
 import { IconButton, Toolbar } from '@mui/material';
@@ -10,16 +10,32 @@ import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
 // Contexst
-import DarkMode from 'DarkMode/DarkMode';
+import DarkMode from 'darkMode/DarkMode';
+
+// Language
+import { useTranslation } from 'react-i18next';
 
 // Styles
 import classes from './Header.module.scss';
 
 const Header: FC = () => {
   const { mode, setMode } = useContext(DarkMode);
-  const chooseMode = () => {
-    return mode === 'dark' ? setMode('light') : setMode('dark');
+  const { t, i18n } = useTranslation();
+
+  const chooseMode = (theme: string) => {
+    setMode(theme);
+    localStorage.setItem('theme', theme);
   };
+
+  const changeLanguage = useCallback(() => {
+    if (i18n.language === 'en') {
+      i18n.changeLanguage('ru');
+    } else {
+      i18n.changeLanguage('en');
+    }
+    localStorage.setItem('language', i18n.language);
+  }, [i18n.language]);
+
   return (
     <Toolbar
       className={`${classes.header} ${
@@ -42,7 +58,7 @@ const Header: FC = () => {
                   : classes.orangeTextDecorationNone
               }
             >
-              Characters
+              {t('characters')}
             </Link>
           </li>
           <li>
@@ -54,7 +70,7 @@ const Header: FC = () => {
                   : classes.orangeTextDecorationNone
               }
             >
-              Comics
+              {t('comics')}
             </Link>
           </li>
           <li>
@@ -66,7 +82,7 @@ const Header: FC = () => {
                   : classes.orangeTextDecorationNone
               }
             >
-              Series
+              {t('series')}
             </Link>
           </li>
         </ul>
@@ -77,19 +93,29 @@ const Header: FC = () => {
             <FavoriteIcon className={classes.iconColor} />
           </IconButton>
         </Link>
+        {mode === 'light' ? (
+          <IconButton
+            onClick={() => {
+              chooseMode('light');
+            }}
+          >
+            <DarkModeIcon className={classes.iconColor} />
+          </IconButton>
+        ) : (
+          <IconButton
+            onClick={() => {
+              chooseMode('light');
+            }}
+          >
+            <WbSunnyIcon className={classes.iconColor} />
+          </IconButton>
+        )}
+
         <IconButton
           onClick={() => {
-            chooseMode();
+            changeLanguage();
           }}
         >
-          {mode === 'light' ? (
-            <DarkModeIcon className={classes.iconColor} />
-          ) : (
-            <WbSunnyIcon className={classes.iconColor} />
-          )}
-        </IconButton>
-
-        <IconButton>
           <TranslateIcon className={classes.iconColor} />
         </IconButton>
       </div>
