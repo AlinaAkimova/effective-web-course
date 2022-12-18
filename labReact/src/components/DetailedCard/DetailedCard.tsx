@@ -1,8 +1,14 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import { Link } from 'react-router-dom';
 
+// Context
+import DarkMode from 'darkMode/DarkMode';
+
+// Language
+import { useTranslation } from 'react-i18next';
+
 // Types
-import { ICard } from 'types/card';
+import { ICard, PageType } from 'types/card';
 
 // Stores
 import characterStore from 'stores/CharacterStore';
@@ -17,6 +23,9 @@ interface IDetailedCard {
 }
 
 const DetailedCard: FC<IDetailedCard> = ({ item }) => {
+  const { mode } = useContext(DarkMode);
+  const { t } = useTranslation();
+
   const { setId: setIdCh } = characterStore;
   const { setId: setIdCom } = comicsStore;
   const { setId: setIdS } = seriesStore;
@@ -26,23 +35,29 @@ const DetailedCard: FC<IDetailedCard> = ({ item }) => {
       <div className={classes.cardContainer}>
         <div className={classes.cardTextColumn}>
           <img src={item?.cardImage} alt="img" className={classes.cardImage} />
-
           <div className={classes.textColumn}>
             <h1>{item?.cardName}</h1>
-            <div>{item?.cardDesc}</div>
+            <div className={`${mode === 'dark' && classes.dark} `}>
+              {item?.cardDesc}
+            </div>
           </div>
         </div>
 
         <div className={classes.cardTextRow}>
           <div className={classes.textColumn}>
-            <h2>{item?.cardType === 'CHARACTER' ? 'Comics' : 'Characters'}</h2>
+            <h2>
+              {item?.cardType === PageType.character
+                ? `${t('comics')}`
+                : `${t('characters')}`}
+            </h2>
             <ul>
-              {item?.cardType === 'CHARACTER'
+              {item?.cardType === PageType.character
                 ? item?.comics?.map((el) => (
                     <li key={el.id}>
                       <Link
                         to={`/comics/${el.id}`}
                         onClick={() => setIdCom(el.id)}
+                        className={`${mode === 'dark' && classes.darkLink} `}
                       >
                         {el.name}
                       </Link>
@@ -53,6 +68,7 @@ const DetailedCard: FC<IDetailedCard> = ({ item }) => {
                       <Link
                         to={`/characters/${el.id}`}
                         onClick={() => setIdCh(el.id)}
+                        className={`${mode === 'dark' && classes.darkLink} `}
                       >
                         {el.name}
                       </Link>
@@ -62,15 +78,20 @@ const DetailedCard: FC<IDetailedCard> = ({ item }) => {
           </div>
 
           <div className={classes.textColumn}>
-            <h2>{item?.cardType === 'SERIES' ? 'Comics' : 'Series'}</h2>
+            <h2>
+              {item?.cardType === PageType.series
+                ? `${t('comics')}`
+                : `${t('series')}`}
+            </h2>
             <div>
               <ul>
-                {item?.cardType === 'SERIES'
+                {item?.cardType === PageType.series
                   ? item?.comics?.map((el) => (
                       <li key={el.id}>
                         <Link
                           to={`/comics/${el.id}`}
                           onClick={() => setIdCom(el.id)}
+                          className={`${mode === 'dark' && classes.darkLink} `}
                         >
                           {el.name}
                         </Link>
@@ -81,6 +102,7 @@ const DetailedCard: FC<IDetailedCard> = ({ item }) => {
                         <Link
                           to={`/series/${el.id}`}
                           onClick={() => setIdS(el.id)}
+                          className={`${mode === 'dark' && classes.darkLink} `}
                         >
                           {el.name}
                         </Link>

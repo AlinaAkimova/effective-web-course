@@ -13,8 +13,12 @@ import { ICard } from 'types/card';
 import { getCharacter, getCharacters } from '../api/characters';
 
 class CharacterStore {
+  constructor() {
+    makeObservable(this);
+  }
+
   @observable
-  characters: ICard[] | [] = [];
+  characters: ICard[] = [];
 
   @observable
   character: ICard | undefined = undefined;
@@ -28,6 +32,11 @@ class CharacterStore {
   isLoad: boolean = false;
 
   @observable
+  favorites: ICard[] = JSON.parse(
+    localStorage.getItem('charactersFavorites') ?? '[]'
+  );
+
+  @observable
   query: string = '';
 
   @observable
@@ -38,12 +47,6 @@ class CharacterStore {
 
   @observable
   loading: boolean = false;
-
-  clearSearch: boolean = false;
-
-  constructor() {
-    makeObservable(this);
-  }
 
   @computed
   get charactersList() {
@@ -62,6 +65,27 @@ class CharacterStore {
   };
 
   @action
+  setFavorites = (favorite: ICard, func: boolean) => {
+    if (func) {
+      this.favorites.push({ ...favorite, favorite: func });
+    } else {
+      this.favorites.splice(
+        this.favorites.findIndex((card) => {
+          return card.cardId === favorite.cardId;
+        }),
+        1
+      );
+    }
+    const index = this.characters.findIndex((card) => {
+      return card.cardId === favorite.cardId;
+    });
+    if (index !== -1) {
+      this.updateFavoriteInArray(this.characters, index, favorite, func);
+    }
+    localStorage.setItem('charactersFavorites', JSON.stringify(this.favorites));
+  };
+
+  @action
   incrementOffset = () => {
     this.offset += 20;
     this.isLoad = false;
@@ -69,32 +93,40 @@ class CharacterStore {
 
   @action
   setQuery = (query: string): void => {
-    this.query = query;
-    this.isLoad = false;
-    this.clearSearch = true;
+    if (query !== this.query) {
+      this.query = query;
+      this.isLoad = false;
+      this.offset = 0;
+      this.characters = [];
+    }
   };
 
   @action
   loadCharacters = async (): Promise<void> => {
     try {
       if (!this.isLoad) {
-        if (this.clearSearch) {
-          this.offset = 0;
-          this.characters = [];
-          this.clearSearch = false;
-        }
         const data = await getCharacters(this.query, this.offset);
+        const favArr = data.characters.map((item) => {
+          return this.favorites.findIndex((card) => {
+            return card.cardId === item.cardId;
+          }) === -1
+            ? item
+            : { ...item, favorite: true };
+        });
         runInAction(() => {
           this.loading = true;
-          this.characters = [...this.characters, ...data.characters];
+          this.characters = [...this.characters, ...favArr];
           this.isLoad = true;
           this.total = data.total;
           this.error = data.error;
-          this.loading = data.loading;
         });
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      runInAction(() => {
+        this.loading = false;
+      });
     }
   };
 
@@ -108,6 +140,15 @@ class CharacterStore {
     } catch (error) {
       console.error(error);
     }
+  };
+
+  updateFavoriteInArray = (
+    cards: ICard[],
+    index: number,
+    favorite: ICard,
+    func: boolean
+  ) => {
+    cards.splice(index, 1, { ...favorite, favorite: func });
   };
 }
 

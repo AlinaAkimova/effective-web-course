@@ -31,6 +31,11 @@ class ComicsStore {
   query: string = '';
 
   @observable
+  favorites: ICard[] = JSON.parse(
+    localStorage.getItem('comicsFavorites') ?? '[]'
+  );
+
+  @observable
   total: number = 0;
 
   @observable
@@ -62,6 +67,27 @@ class ComicsStore {
   };
 
   @action
+  setFavorites = (favorite: ICard, func: boolean) => {
+    if (func) {
+      this.favorites.push({ ...favorite, favorite: func });
+    } else {
+      this.favorites.splice(
+        this.favorites.findIndex((card) => {
+          return card.cardId === favorite.cardId;
+        }),
+        1
+      );
+    }
+    const index = this.comics.findIndex((card) => {
+      return card.cardId === favorite.cardId;
+    });
+    if (index !== -1) {
+      this.updateFavoriteInArray(this.comics, index, favorite, func);
+    }
+    localStorage.setItem('comicsFavorites', JSON.stringify(this.favorites));
+  };
+
+  @action
   incrementOffset = () => {
     this.offset += 20;
     this.isLoad = false;
@@ -69,20 +95,18 @@ class ComicsStore {
 
   @action
   setQuery = (query: string): void => {
-    this.query = query;
-    this.isLoad = false;
-    this.clearSearch = true;
+    if (query !== this.query) {
+      this.query = query;
+      this.isLoad = false;
+      this.offset = 0;
+      this.comics = [];
+    }
   };
 
   @action
   loadComics = async (): Promise<void> => {
     try {
       if (!this.isLoad) {
-        if (this.clearSearch) {
-          this.offset = 0;
-          this.comics = [];
-          this.clearSearch = false;
-        }
         const data = await getComics(this.query, this.offset);
 
         runInAction(() => {
@@ -109,10 +133,18 @@ class ComicsStore {
       runInAction(() => {
         this.oneComics = data;
       });
-      console.log(data);
     } catch (error) {
       console.error(error);
     }
+  };
+
+  updateFavoriteInArray = (
+    cards: ICard[],
+    index: number,
+    favorite: ICard,
+    func: boolean
+  ) => {
+    cards.splice(index, 1, { ...favorite, favorite: func });
   };
 }
 

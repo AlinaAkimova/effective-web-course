@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite';
 import comicsStore from 'stores/ComicsStore';
 
 // Layout
-import PageLayout from 'layouts/PageLayout';
+import PageLayout from 'layouts/DetailedPageLayout';
 
 // Components
 import DetailedCard from 'components/DetailedCard';

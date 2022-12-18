@@ -1,0 +1,26 @@
+@import 'src/styles';
+
+.maxHeight {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .children {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    flex: 1 0 auto;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+}
+
+.dark {
+  color: $color-grey;
+  background-color: $color-black;
+}
+
+.light {
+  background-color: $color-white;
+}

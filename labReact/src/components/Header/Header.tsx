@@ -1,14 +1,47 @@
-import React, { FC } from 'react';
+import React, { FC, useContext, useCallback } from 'react';
 import { Link, useMatch } from 'react-router-dom';
 
-import { Toolbar } from '@mui/material';
+import { IconButton, Toolbar } from '@mui/material';
+
+// Icons
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import TranslateIcon from '@mui/icons-material/Translate';
+import WbSunnyIcon from '@mui/icons-material/WbSunny';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+
+// Contexst
+import DarkMode from 'darkMode/DarkMode';
+
+// Language
+import { useTranslation } from 'react-i18next';
 
 // Styles
 import classes from './Header.module.scss';
 
 const Header: FC = () => {
+  const { mode, setMode } = useContext(DarkMode);
+  const { t, i18n } = useTranslation();
+
+  const chooseMode = (theme: string) => {
+    setMode(theme);
+    localStorage.setItem('theme', theme);
+  };
+
+  const changeLanguage = useCallback(() => {
+    if (i18n.language === 'en') {
+      i18n.changeLanguage('ru');
+    } else {
+      i18n.changeLanguage('en');
+    }
+    localStorage.setItem('language', i18n.language);
+  }, [i18n.language]);
+
   return (
-    <Toolbar className={classes.header}>
+    <Toolbar
+      className={`${classes.header} ${
+        mode === 'light' ? classes.light : classes.dark
+      } `}
+    >
       <img
         src="/marvel_logo.svg"
         alt="logo marvel"
@@ -25,7 +58,7 @@ const Header: FC = () => {
                   : classes.orangeTextDecorationNone
               }
             >
-              Characters
+              {t('characters')}
             </Link>
           </li>
           <li>
@@ -37,7 +70,7 @@ const Header: FC = () => {
                   : classes.orangeTextDecorationNone
               }
             >
-              Comics
+              {t('comics')}
             </Link>
           </li>
           <li>
@@ -49,11 +82,43 @@ const Header: FC = () => {
                   : classes.orangeTextDecorationNone
               }
             >
-              Series
+              {t('series')}
             </Link>
           </li>
         </ul>
       </nav>
+      <div className={classes.headerIcons}>
+        <Link to="/favorites">
+          <IconButton>
+            <FavoriteIcon className={classes.iconColor} />
+          </IconButton>
+        </Link>
+        {mode === 'light' ? (
+          <IconButton
+            onClick={() => {
+              chooseMode('dark');
+            }}
+          >
+            <DarkModeIcon className={classes.iconColor} />
+          </IconButton>
+        ) : (
+          <IconButton
+            onClick={() => {
+              chooseMode('light');
+            }}
+          >
+            <WbSunnyIcon className={classes.iconColor} />
+          </IconButton>
+        )}
+
+        <IconButton
+          onClick={() => {
+            changeLanguage();
+          }}
+        >
+          <TranslateIcon className={classes.iconColor} />
+        </IconButton>
+      </div>
     </Toolbar>
   );
 };

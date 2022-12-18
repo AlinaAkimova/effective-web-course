@@ -1,0 +1,20 @@
+@import 'src/styles';
+
+.cardsPage {
+  height: 100%;
+
+  .cardContainer {
+    display: flex;
+    justify-content: flex-start;
+    margin: 50px;
+    height: 100%;
+  }
+}
+
+.dark {
+  color: $color-white;
+}
+
+.light {
+  color: $color-black;
+}

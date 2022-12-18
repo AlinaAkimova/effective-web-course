@@ -59,7 +59,8 @@ export const getComics = (
             cardDesc: comicsOne.description,
             cardType: PageType.comics,
             characters: [],
-            series: []
+            series: [],
+            favorite: false
           };
         }), total: comics.data.data.total, error: false };
     })
@@ -79,7 +80,7 @@ export const getOneComics = async (comicsId: number) => {
       .concat(comics.data.data.results[0].thumbnail.extension),
     cardName: comics.data.data.results[0].title,
     cardDesc: comics.data.data.results[0].description,
-    cardType: PageType.character,
+    cardType: PageType.comics,
     series: [
       {
         id: Number(

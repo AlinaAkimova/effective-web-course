@@ -3,14 +3,16 @@
 .cardPage {
   display: flex;
   flex-direction: column;
+  font-family: 'Montserrat', sans-serif !important;
 
   .cardContainer {
     display: flex;
-    margin: 50px;
+    margin: 50px 50px 0px 50px;
     height: 100%;
 
     .cardImage {
-      height: 400px;
+      height: 520px;
+      width: 370px;
       margin-right: 40px;
     }
 
@@ -19,7 +21,7 @@
       flex-direction: column;
       align-items: flex-start;
       margin-right: 100px;
-      width: 270px;
+      width: 380px;
     }
 
     .cardTextRow {
@@ -42,4 +44,17 @@
       }
     }
   }
+}
+
+.dark {
+  color: $color-white;
+}
+
+.darkLink {
+  color: $color-grey;
+  text-decoration: none;
+}
+
+.light {
+  color: $color-black;
 }

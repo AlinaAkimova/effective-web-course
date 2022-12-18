@@ -2,10 +2,15 @@ import React, { FC } from 'react';
 
 import { Link } from '@mui/material';
 
+// Language
+import { useTranslation } from 'react-i18next';
+
 // Styles
 import classes from './Footer.module.scss';
 
 const Footer: FC = () => {
+  const { t } = useTranslation();
+
   const CURRENT_YEAR = () => {
     return new Date().getFullYear();
   };
@@ -17,7 +22,9 @@ const Footer: FC = () => {
         alt="logo marvel"
         className={classes.headerLogo}
       />
-      <div>Data provided by Marvel.©{CURRENT_YEAR()} MARVEL</div>
+      <div>
+        {t('Footer')}.©{CURRENT_YEAR()} MARVEL
+      </div>
       <Link
         href="https://developer.marvel.com"
         underline="hover"

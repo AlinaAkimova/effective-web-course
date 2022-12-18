@@ -8,12 +8,15 @@ import { Grid } from '@mui/material';
 import comicsStore from 'stores/ComicsStore';
 
 // Layouts
-import PageLayout from 'layouts/PageLayout';
+import PageLayout from 'layouts/MainPageLayout';
 
 // Components
 import SearchBase from 'components/SearchBase';
 import CardWithImage from 'components/CardWithImage';
 import Loading from 'components/Loading';
+
+// Language
+import { useTranslation } from 'react-i18next';
 
 // Styles
 import classes from '../Routes.module.scss';
@@ -21,7 +24,9 @@ import classes from '../Routes.module.scss';
 const ComicsList = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: space-around;
 `;
 
 const ComicsContainer: FC = observer(() => {
@@ -35,8 +40,11 @@ const ComicsContainer: FC = observer(() => {
     incrementOffset,
     total,
     error,
-    loading
+    isLoad,
+    setFavorites
   } = comicsStore;
+
+  const { t } = useTranslation();
 
   const loadNext = useCallback(() => {
     return setTimeout(() => {
@@ -51,40 +59,55 @@ const ComicsContainer: FC = observer(() => {
 
   return (
     <PageLayout>
-      {!loading ? (
+      {isLoad || comicsList.length ? (
         <div className={classes.mainSize}>
-          <SearchBase
-            pageName="comics"
-            count={total}
-            query={query}
-            setQuery={setQuery}
-          />
           {error ? (
-            <h1>Something went wrong......</h1>
+            <h2 className={classes.errorText}>{t('Error')}</h2>
           ) : (
-            <VirtuosoGrid
-              className={classes.virtuoso}
-              components={{
-                Item: Grid,
-                List: ComicsList as ComponentType<
-                  GridListProps & { context?: unknown }
-                >,
-                ScrollSeekPlaceholder: () => <Grid item xs={3} />,
-                Footer: () => {
-                  return offset + 20 < total ? (
-                    <div className={classes.virtuosoFooter}>Loading...</div>
-                  ) : (
-                    <div />
-                  );
-                }
-              }}
-              overscan={200}
-              data={comicsList}
-              endReached={incrementOffset}
-              itemContent={(index, item) => (
-                <CardWithImage pageName="comics" item={item} openCard={setId} />
+            <>
+              <div className={classes.searchStyle}>
+                <SearchBase
+                  pageName="comics"
+                  count={total}
+                  query={query}
+                  setQuery={setQuery}
+                />
+              </div>
+              {comicsList.length ? (
+                <VirtuosoGrid
+                  className={classes.virtuoso}
+                  components={{
+                    Item: Grid,
+                    List: ComicsList as ComponentType<
+                      GridListProps & { context?: unknown }
+                    >,
+                    ScrollSeekPlaceholder: () => <Grid item xs={3} />,
+                    Footer: () => {
+                      return offset + 20 < total ? (
+                        <div className={classes.virtuosoFooter}>
+                          {t('Loading')}...
+                        </div>
+                      ) : (
+                        <div />
+                      );
+                    }
+                  }}
+                  overscan={200}
+                  data={comicsList}
+                  endReached={incrementOffset}
+                  itemContent={(index, item) => (
+                    <CardWithImage
+                      pageName="comics"
+                      item={item}
+                      openCard={setId}
+                      setFavorites={setFavorites}
+                    />
+                  )}
+                />
+              ) : (
+                <h2 className={classes.errorText}>{t('NothingFound')}</h2>
               )}
-            />
+            </>
           )}
         </div>
       ) : (
