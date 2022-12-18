@@ -79,7 +79,7 @@ export const getCharacters = (
     });
 };
 
-export const getCharacter = async (characterId: number) => {
+export const getCharacter = async (characterId: number): Promise<ICard> => {
   const characters = await axios.get<ICharactersResponse>(
     `/v1/public/characters/${characterId}`
   );

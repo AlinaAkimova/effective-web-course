@@ -68,7 +68,7 @@ export const getSeries = (
     });
 };
 
-export const getOneSeries = async (seriesId: number) => {
+export const getOneSeries = async (seriesId: number): Promise<ICard> => {
   const series = await axios.get<ISeriesResponse>(
     `/v1/public/series/${seriesId}`
   );

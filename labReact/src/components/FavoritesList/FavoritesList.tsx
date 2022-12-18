@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { Container } from '@mui/system';
+import { observer } from 'mobx-react-lite';
 
 // Components
 import CardWithImage from 'components/CardWithImage';
@@ -15,7 +16,7 @@ import { useTranslation } from 'react-i18next';
 // Styles
 import classes from './FavoritesList.module.scss';
 
-const FavoriteList: FC = () => {
+const FavoriteList: FC = observer(() => {
   const {
     favorites: characters,
     setId: setCharacterId,
@@ -111,6 +112,6 @@ const FavoriteList: FC = () => {
       )}
     </Container>
   );
-};
+});
 
 export default FavoriteList;
