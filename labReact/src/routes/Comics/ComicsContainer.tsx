@@ -8,7 +8,7 @@ import { Grid } from '@mui/material';
 import comicsStore from 'stores/ComicsStore';
 
 // Layouts
-import PageLayout from 'layouts/MainPageLayout';
+import PageLayout from 'layouts/DetailedPageLayout';
 
 // Components
 import SearchBase from 'components/SearchBase';
