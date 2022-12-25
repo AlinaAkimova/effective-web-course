@@ -5,7 +5,7 @@ interface IMode {
   setMode(mode: string): void;
 }
 
-export const defaultState = {
+const defaultState = {
   mode: 'light',
   setMode: () => 'dark'
 };

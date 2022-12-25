@@ -11,7 +11,7 @@ import styled from '@emotion/styled';
 import { Grid } from '@mui/material';
 
 // Layouts
-import PageLayout from 'layouts/MainPageLayout';
+import PageLayout from 'layouts/DetailedPageLayout';
 
 // Contexst
 import DarkMode from 'darkMode/DarkMode';

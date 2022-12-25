@@ -69,7 +69,7 @@ export const getComics = (
     });
 };
 
-export const getOneComics = async (comicsId: number) => {
+export const getOneComics = async (comicsId: number): Promise<ICard> => {
   const comics = await axios.get<IComicsResponse>(
     `/v1/public/comics/${comicsId}`
   );

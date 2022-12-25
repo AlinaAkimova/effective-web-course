@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 import { Grid } from '@mui/material';
 
 // Layouts
-import PageLayout from 'layouts/MainPageLayout';
+import PageLayout from 'layouts/DetailedPageLayout';
 
 // Components
 import CardWithImage from 'components/CardWithImage';
